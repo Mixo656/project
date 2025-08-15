@@ -9,8 +9,10 @@
      { to: '/education', icon: BookOpen, label: 'Education' },
      { to: '/settings', icon: Settings, label: 'Settings' },
    ];
+ }
  
    return (
+   )
 -    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
 -      <nav className="p-6">
 +    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 overflow-y-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40">
@@ -21,6 +23,10 @@
                <NavLink
                  to={to}
                  className={({ isActive }) =>
+                 }
+)
+)
+}
 -                  `flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
 +                  `flex items-center space-x-3 px-3 lg:px-4 py-3 rounded-lg transition-colors ${
                      isActive
