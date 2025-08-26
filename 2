@@ -1,0 +1,76 @@
+import java.net.*;
+
+import java.util.Scanner;
+
+public class UDPServer {
+
+ public static void main(String[] args) {
+
+ Scanner scanner = new Scanner(System.in);
+
+ try {
+
+ // Create server socket
+
+ DatagramSocket serverSocket = new DatagramSocket(12345);
+
+ System.out.println("Server started. Waiting for client...");
+
+ // Buffer to receive initial client message
+
+ byte[] receiveBuffer = new byte[1024];
+
+ DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, 
+
+receiveBuffer.length);
+
+ // Receive dummy message from client to know its address
+
+ serverSocket.receive(receivePacket);
+
+ InetAddress clientAddress = receivePacket.getAddress();
+
+ int clientPort = receivePacket.getPort();
+
+ System.out.println("Client connected from " + clientAddress + ":" + 
+
+clientPort);
+
+ // Loop to send messages typed by server user
+
+ while (true) {
+
+ System.out.print("Enter message for client (type 'exit' to quit): ");
+
+ String message = scanner.nextLine();
+
+ byte[] sendBuffer = message.getBytes();
+
+ DatagramPacket sendPacket = new DatagramPacket(sendBuffer, 
+
+sendBuffer.length, clientAddress, clientPort);
+serverSocket.send(sendPacket);
+
+ if (message.equalsIgnoreCase("exit")) {
+
+ System.out.println("Server shutting down.");
+
+ break;
+
+ }
+
+ }
+
+ serverSocket.close();
+
+ scanner.close();
+
+ } catch (Exception e) {
+
+ e.printStackTrace();
+
+ }
+
+ }
+
+}
