@@ -29,7 +29,7 @@ export default function ChatInterface({ domain }: ChatInterfaceProps) {
 
     const queryMutation = useMutation({
         mutationFn: async (query: string) => {
-            const response = await fetch('http://localhost:8080/api/v1/query', {
+            const response = await fetch('/api/v1/query', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

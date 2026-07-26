@@ -13,7 +13,7 @@ class EntityExtractor:
     def __init__(self):
         self.MATCH_THRESHOLD = 0.6  # difflib ratio (0 to 1)
 
-    async def extract(self, query: str, domain: str = "general") -> Dict[str, Any]:
+    async def extract(self, query: str, domain: str = "general", relevant_tables: List[str] = None) -> Dict[str, Any]:
         """
         Extracts entities and resolves them against database values using LLM reasoning 
         informed by the domain schema context.
@@ -25,9 +25,21 @@ class EntityExtractor:
         schema_context = config.get("schema_context", "")
         db_profile = config.get("db_profile", {})
         
+        # Exclude high-cardinality or unnecessary columns from value resolution context
+        EXCLUDED_COLUMNS = {
+            "user_id", "email", "full_name", "phone", "date_of_birth", 
+            "kyc_verified_at", "kyc_expiry_date", "created_at", "updated_at", 
+            "processed_at", "external_ref", "ip_address", "device_fingerprint", 
+            "user_agent", "event_id", "txn_id"
+        }
+        
         unique_values_map = {
-            table: {col: values for col, values in col_data.get("unique_values", {}).items()}
+            table: {
+                col: values for col, values in col_data.get("unique_values", {}).items()
+                if col not in EXCLUDED_COLUMNS
+            }
             for table, col_data in db_profile.items()
+            if relevant_tables is None or table in relevant_tables
         }
 
         # 2. Build a prompt that asks the LLM to extract AND resolve

@@ -58,7 +58,7 @@ class AlertEngineService:
         self.FAILURE_SPIKE_CACHE_TTL_SEC: float = 30.0
         
         # Initialize Redis connection
-        self._init_redis()
+        # self._init_redis()
         
         print(f"[AlertEngine] Initialized with database: {self.db_url}")
         print(f"[AlertEngine] Redis: {'connected' if self._redis_available else 'not available (using fallback)'}")
@@ -66,11 +66,12 @@ class AlertEngineService:
     def _init_redis(self):
         """Initialize Redis connection."""
         try:
+            # use a very short connect timeout to avoid hangs
             self._redis_client = redis.from_url(
                 self.redis_url,
                 decode_responses=True,
-                socket_connect_timeout=2,
-                socket_timeout=2
+                socket_connect_timeout=0.5,
+                socket_timeout=0.5
             )
             # Test connection
             self._redis_client.ping()
@@ -997,5 +998,6 @@ class AlertEngineService:
             return {"available": False, "error": str(e)}
 
 
+# Singleton instance
 # Singleton instance
 alert_engine = AlertEngineService()

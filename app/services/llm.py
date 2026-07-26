@@ -1,28 +1,51 @@
 import time
-import google.generativeai as genai
+import asyncio
 from app.core.config import settings
 from app.core.logger import logger
 
-# Optional import of OpenAI – will be available if the package is installed
+# Provider-agnostic imports
 try:
     import openai
 except ImportError:
     openai = None
 
+try:
+    import google.generativeai as genai
+except ImportError:
+    genai = None
+
+
 class LLMService:
     def __init__(self):
-        # Prefer OpenAI if an API key is provided
-        if getattr(settings, "OPENAI_API_KEY", None):
+        # Priority: Qubrid > OpenAI > Gemini
+        if getattr(settings, "QUBRID_API_KEY", None):
+            if openai is None:
+                raise ImportError("openai package is required for Qubrid API usage.")
+            self.client = openai.AsyncOpenAI(
+                api_key=settings.QUBRID_API_KEY,
+                base_url=settings.QUBRID_BASE_URL,
+                timeout=20.0
+            )
+            self.provider = "qubrid"
+            self.model_name = getattr(settings, "QUBRID_MODEL_NAME", "meta-llama/Llama-3.3-70B-Instruct")
+            logger.info(f"LLM Service initialized with Qubrid provider, model: {self.model_name}")
+        elif getattr(settings, "OPENAI_API_KEY", None):
             if openai is None:
                 raise ImportError("openai package is required for OPENAI_API_KEY usage.")
-            openai.api_key = settings.OPENAI_API_KEY
+            self.client = openai.AsyncOpenAI(
+                api_key=settings.OPENAI_API_KEY,
+                base_url=settings.OPENAI_BASE_URL,
+                timeout=20.0
+            )
             self.provider = "openai"
-            self.model_name = getattr(settings, "OPENAI_MODEL_NAME", "gpt-3.5-turbo")
-        elif settings.GEMINI_API_KEY:
+            self.model_name = getattr(settings, "OPENAI_MODEL_NAME", "gpt-4o-mini")
+            logger.info(f"LLM Service initialized with OpenAI provider, model: {self.model_name}")
+        elif getattr(settings, "GEMINI_API_KEY", None):
+            if genai is None:
+                raise ImportError("google-generativeai package is required for GEMINI_API_KEY usage.")
             genai.configure(api_key=settings.GEMINI_API_KEY)
             self.provider = "gemini"
             self.model_name = getattr(settings, "GEMINI_MODEL_NAME", "gemini-2.5-flash-lite")
-            # Set lowered safety settings to avoid blocking technical database queries
             safety_settings = [
                 {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
                 {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
@@ -33,17 +56,19 @@ class LLMService:
                 model_name=self.model_name,
                 safety_settings=safety_settings
             )
+            logger.info(f"LLM Service initialized with Gemini provider, model: {self.model_name}")
         else:
             print("Warning: No LLM API key found in settings.")
             self.provider = None
             self.model = None
 
-    async def _call_openai(self, prompt: str, model_override: str = None) -> str:
-        # Simple wrapper for OpenAI ChatCompletion
-        response = openai.ChatCompletion.create(
+    async def _call_openai_compatible(self, prompt: str, model_override: str = None) -> str:
+        """Call OpenAI-compatible ChatCompletion (works for OpenAI, Ollama, Qubrid, etc.)."""
+        response = await self.client.chat.completions.create(
             model=model_override or self.model_name,
-            messages=[{"role": "system", "content": prompt}],
+            messages=[{"role": "user", "content": prompt}],
             temperature=0.0,
+            stream=False,
         )
         return response.choices[0].message.content
 
@@ -55,14 +80,13 @@ class LLMService:
         selected_model = model_name or self.model_name
         logger.info(f"LLM [{self.provider}] using model [{selected_model}] generating response...")
         
-        # Retry logic for rate‑limit (429) – up to 3 attempts
+        # Retry logic for rate-limit (429/503) – up to 5 attempts
         attempts = 0
-        while attempts < 3:
+        while attempts < 5:
             try:
-                if self.provider == "openai":
-                    res = await self._call_openai(prompt, model_override=selected_model)
+                if self.provider in ("openai", "qubrid"):
+                    res = await self._call_openai_compatible(prompt, model_override=selected_model)
                 else:  # gemini
-                    # If model_name is provided, we use a new model instance for that call
                     model_to_use = self.model
                     if model_name:
                         model_to_use = genai.GenerativeModel(
@@ -77,9 +101,8 @@ class LLMService:
                     
                     response = model_to_use.generate_content(prompt)
                     
-                    # Handle safety blocks
-                    if not response.candidates or response.candidates[0].finish_reason != 1: # 1 = STOP (Success)
-                        if response.candidates and response.candidates[0].finish_reason == 3: # 3 = SAFETY
+                    if not response.candidates or response.candidates[0].finish_reason != 1:
+                        if response.candidates and response.candidates[0].finish_reason == 3:
                             logger.warning(f"LLM response blocked by safety filters for model {selected_model}.")
                             return "Error: Response blocked by safety filters."
                         
@@ -88,13 +111,12 @@ class LLMService:
                 logger.info(f"LLM response received from [{selected_model}]. Snippet: {res[:50]}...")
                 return res
             except Exception as e:
-                # Detect rate‑limit / quota errors
                 err_msg = str(e).lower()
-                if "429" in err_msg or "rate limit" in err_msg or "quota" in err_msg:
+                if "429" in err_msg or "rate limit" in err_msg or "quota" in err_msg or "503" in err_msg or "resourceexhausted" in err_msg or "limit reached" in err_msg:
                     attempts += 1
                     wait = 2 ** attempts
-                    logger.warning(f"LLM rate limit encountered, retrying in {wait}s (attempt {attempts})")
-                    time.sleep(wait)
+                    logger.warning(f"LLM rate limit / resource exhaustion encountered, retrying in {wait}s (attempt {attempts})")
+                    await asyncio.sleep(wait)
                     continue
                 logger.error(f"LLM Error: {str(e)}")
                 return f"Error generating response: {str(e)}"

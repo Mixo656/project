@@ -1,4 +1,4 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from app.core.config import settings
 from app.orchestration.scan_memory import scan_memory
@@ -6,17 +6,18 @@ import json
 
 class SentinelBrainstormer:
     def __init__(self):
-        self.llm = ChatGoogleGenerativeAI(
-            model=settings.DISCOVERY_MODEL,
-            google_api_key=settings.GEMINI_API_KEY,
+        self.llm = ChatOpenAI(
+            model=settings.OPENAI_MODEL_NAME,
+            api_key=settings.OPENAI_API_KEY,
+            base_url=settings.OPENAI_BASE_URL,
             temperature=0.8
         )
 
         self.schema_context = """
         ACTUAL TABLES:
-        - users (user_id, username, age, kyc_status, risk_level, risk_score, is_pep, account_status)
-        - transactions (txn_id, user_id, txn_type, instrument, amount, currency, amount_usd, status, flag_reason, payment_method)
-        - login_events (event_id, user_id, email_attempted, status, country, city, device_type, failure_reason)
+        - users (user_id, email, full_name, country, phone, date_of_birth, kyc_status, kyc_verified_at, kyc_expiry_date, risk_level, risk_score, is_pep, account_status, created_at, updated_at)
+        - transactions (txn_id, user_id, txn_type, instrument, amount, currency, amount_usd, status, flag_reason, payment_method, external_ref, ip_address, created_at, processed_at)
+        - login_events (event_id, user_id, email_attempted, ip_address, country, city, device_type, device_fingerprint, user_agent, status, failure_reason, created_at)
         """
 
     async def brainstorm_missions(self, count_per_domain=2):

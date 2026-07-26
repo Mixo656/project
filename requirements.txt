@@ -20,3 +20,5 @@ fuzzywuzzy>=0.18.0
 python-Levenshtein>=0.23.0
 httpx>=0.25.0
 pymysql>=1.0
+openai>=2.0.0
+langchain-openai>=0.1.0

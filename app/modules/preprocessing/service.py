@@ -17,17 +17,18 @@ class PreprocessingService:
 
     async def process(self, query: str, domain: str = "general") -> Dict[str, Any]:
         """
-        Runs all preprocessing components in parallel.
-        Domain is used to filter few-shot examples.
+        Runs table retrieval first (local/0ms), then processes columns, few-shots,
+        and entity extraction (passing the relevant tables) concurrently.
         """
-        # Create tasks for parallel execution
-        t1 = self.table_retriever.retrieve(query)
+        # 1. Retrieve tables first (0ms local keyword check)
+        tables = await self.table_retriever.retrieve(query)
+        
+        # 2. Run the remaining retrievers and extractors concurrently
         t2 = self.column_retriever.retrieve(query)
         t3 = self.few_shot_retriever.retrieve(query, domain=domain)
-        t4 = self.entity_extractor.extract(query)
+        t4 = self.entity_extractor.extract(query, domain=domain, relevant_tables=tables)
 
-        # Execute all tasks concurrently
-        tables, columns, few_shots, entities = await asyncio.gather(t1, t2, t3, t4)
+        columns, few_shots, entities = await asyncio.gather(t2, t3, t4)
 
         return {
             "relevant_tables": tables,

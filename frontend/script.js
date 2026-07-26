@@ -243,8 +243,9 @@ function displayResults(response) {
     vizContainer.id = 'viz-container';
     elements.resultsContent.appendChild(vizContainer);
 
-    // Default to Table view
-    renderVisualization('table');
+    // Default to recommended visualization type if available, otherwise 'table'
+    const defaultType = visConfig?.chart_type || 'table';
+    renderVisualization(defaultType);
 }
 
 function renderInsights(insight, recommendation) {
@@ -320,8 +321,8 @@ function createVizToolbar(visConfig) {
             renderVisualization(type.id);
         };
 
-        // Set Table as active initially
-        if (type.id === 'table') {
+        // Set initial active state matching recommended or table
+        if (type.id === recommendedType) {
             btn.classList.add('active');
         }
 
@@ -472,11 +473,11 @@ function createChart(data, config) {
 
     const datasets = yKeys.map((key, index) => {
         const colors = [
-            { bg: 'rgba(99, 102, 241, 0.6)', border: 'rgb(99, 102, 241)' },
-            { bg: 'rgba(139, 92, 246, 0.6)', border: 'rgb(139, 92, 246)' },
-            { bg: 'rgba(236, 72, 153, 0.6)', border: 'rgb(236, 72, 153)' },
-            { bg: 'rgba(16, 185, 129, 0.6)', border: 'rgb(16, 185, 129)' }, // Emerald
-            { bg: 'rgba(245, 158, 11, 0.6)', border: 'rgb(245, 158, 11)' }  // Amber
+            { bg: 'rgba(0, 229, 255, 0.5)', border: 'rgb(0, 229, 255)' },
+            { bg: 'rgba(124, 77, 255, 0.5)', border: 'rgb(124, 77, 255)' },
+            { bg: 'rgba(0, 230, 118, 0.5)', border: 'rgb(0, 230, 118)' },
+            { bg: 'rgba(255, 171, 0, 0.5)', border: 'rgb(255, 171, 0)' },
+            { bg: 'rgba(255, 23, 68, 0.5)', border: 'rgb(255, 23, 68)' }
         ];
 
         // Cycle colors if more datasets than colors
@@ -520,15 +521,15 @@ function createChart(data, config) {
                     display: yKeys.length > 0,
                     position: 'top',
                     labels: {
-                        color: '#e0e0e8',
+                        color: '#e0f7fa',
                         font: { family: 'Inter', size: 12 }
                     }
                 },
                 tooltip: {
-                    backgroundColor: 'rgba(20, 20, 31, 0.95)',
-                    titleColor: '#e0e0e8',
-                    bodyColor: '#a0a0b0',
-                    borderColor: 'rgba(99, 102, 241, 0.5)',
+                    backgroundColor: 'rgba(3, 7, 18, 0.95)',
+                    titleColor: '#e0f7fa',
+                    bodyColor: '#80cbc4',
+                    borderColor: 'rgba(0, 229, 255, 0.3)',
                     borderWidth: 1,
                     padding: 12,
                     displayColors: true
@@ -536,17 +537,17 @@ function createChart(data, config) {
             },
             scales: {
                 x: {
-                    grid: { color: 'rgba(99, 102, 241, 0.1)' },
+                    grid: { color: 'rgba(0, 229, 255, 0.06)' },
                     ticks: {
-                        color: '#a0a0b0',
+                        color: '#80cbc4',
                         font: { family: 'Inter', size: 11 }
                     },
                     display: !['pie', 'doughnut'].includes(finalType)
                 },
                 y: {
-                    grid: { color: 'rgba(99, 102, 241, 0.1)' },
+                    grid: { color: 'rgba(0, 229, 255, 0.06)' },
                     ticks: {
-                        color: '#a0a0b0',
+                        color: '#80cbc4',
                         font: { family: 'Inter', size: 11 }
                     },
                     display: !['pie', 'doughnut'].includes(finalType)
@@ -602,15 +603,38 @@ async function handleSendMessage() {
                 content: response.clarification_question
             });
         } else if (response.status === 'success') {
-            const resultMessage = `✅ Query executed successfully! Found ${response.results?.length || 0} results.`;
-            addMessage(resultMessage, 'assistant', { sql: response.sql });
+            // Build rich AI response with insight + recommendation
+            let aiReply = '';
+            const rowCount = response.results?.length || 0;
+
+            // Add insight
+            if (response.insight) {
+                const insightText = Array.isArray(response.insight) ? response.insight.join('\n\n') : response.insight;
+                aiReply += `**📊 Analysis** *(${rowCount} records found)*\n\n${insightText}`;
+            } else {
+                aiReply += `✅ Query executed successfully — **${rowCount} records** returned.`;
+            }
+
+            // Add recommendation
+            if (response.recommendation) {
+                aiReply += '\n\n---\n\n';
+                if (Array.isArray(response.recommendation)) {
+                    aiReply += '**⚖️ Recommended Actions:**\n';
+                    response.recommendation.forEach(r => { aiReply += `- ${r}\n`; });
+                } else {
+                    aiReply += `**⚖️ Recommended Action:** ${response.recommendation}`;
+                }
+            }
+
+            addMessage(aiReply, 'assistant', { sql: response.sql });
 
             state.conversationHistory.push({
                 role: 'assistant',
-                content: resultMessage
+                content: aiReply
             });
 
-            // Display results
+            // Display results in results panel + auto-show it
+            elements.resultsPanel.classList.remove('hidden');
             displayResults(response);
         } else if (response.status === 'failed') {
             showError(response.error || 'Query execution failed');
@@ -634,6 +658,10 @@ async function handleSendMessage() {
 function handleClearChat() {
     state.conversationHistory = [];
     state.conversationId = generateId();
+    state.currentResults = null;
+    state.currentVisConfig = null;
+    state.currentInsight = null;
+    state.currentRecommendation = null;
 
     elements.messagesContainer.innerHTML = `
         <div class="welcome-message">
@@ -663,8 +691,8 @@ function handleClearChat() {
                 <path d="M60 40v40M40 60h40" stroke="url(#emptyGradient)" stroke-width="2" stroke-linecap="round"/>
                 <defs>
                     <linearGradient id="emptyGradient" x1="0" y1="0" x2="120" y2="120">
-                        <stop offset="0%" stop-color="#6366f1"/>
-                        <stop offset="100%" stop-color="#8b5cf6"/>
+                        <stop offset="0%" stop-color="#00e5ff"/>
+                        <stop offset="100%" stop-color="#7c4dff"/>
                     </linearGradient>
                 </defs>
             </svg>
@@ -688,6 +716,9 @@ function handleDomainChange(domain) {
 }
 
 function handleExampleClick(query) {
+    if (state.isSentinelMode) {
+        toggleSentinelMode();
+    }
     elements.queryInput.value = query;
     elements.queryInput.focus();
 
@@ -696,35 +727,90 @@ function handleExampleClick(query) {
     elements.queryInput.style.height = elements.queryInput.scrollHeight + 'px';
 }
 
-function handleExport() {
+function handleExport(format = 'csv') {
     if (!state.currentResults || state.currentResults.length === 0) {
         alert('No data to export');
         return;
     }
 
-    // Convert to CSV
+    if (format === 'excel') {
+        exportAsExcel();
+    } else {
+        exportAsCSV();
+    }
+}
+
+function exportAsCSV() {
     const columns = Object.keys(state.currentResults[0]);
     const csv = [
         columns.join(','),
         ...state.currentResults.map(row =>
             columns.map(col => {
                 const value = row[col] ?? '';
-                // Escape quotes and wrap in quotes if contains comma
-                return typeof value === 'string' && value.includes(',')
-                    ? `"${value.replace(/"/g, '""')}"`
-                    : value;
+                const str = String(value);
+                return (str.includes(',') || str.includes('"') || str.includes('\n'))
+                    ? `"${str.replace(/"/g, '""')}"`
+                    : str;
             }).join(',')
         )
     ].join('\n');
 
-    // Download
-    const blob = new Blob([csv], { type: 'text/csv' });
+    downloadFile(csv, `query-results-${Date.now()}.csv`, 'text/csv;charset=utf-8;');
+}
+
+function exportAsExcel() {
+    const columns = Object.keys(state.currentResults[0]);
+
+    // Build XML Spreadsheet (Excel-compatible)
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    xml += '<?mso-application progid="Excel.Sheet"?>';
+    xml += '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"';
+    xml += ' xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">';
+    xml += '<Worksheet ss:Name="Results"><Table>';
+
+    // Header row
+    xml += '<Row>';
+    columns.forEach(col => {
+        xml += `<Cell><Data ss:Type="String">${escapeXml(col)}</Data></Cell>`;
+    });
+    xml += '</Row>';
+
+    // Data rows
+    state.currentResults.forEach(row => {
+        xml += '<Row>';
+        columns.forEach(col => {
+            const val = row[col] ?? '';
+            const isNum = !isNaN(parseFloat(val)) && isFinite(val);
+            const type = isNum ? 'Number' : 'String';
+            xml += `<Cell><Data ss:Type="${type}">${escapeXml(String(val))}</Data></Cell>`;
+        });
+        xml += '</Row>';
+    });
+
+    xml += '</Table></Worksheet></Workbook>';
+
+    downloadFile(xml, `query-results-${Date.now()}.xls`, 'application/vnd.ms-excel');
+}
+
+function escapeXml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function downloadFile(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `query-results-${Date.now()}.csv`;
+    a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
+}
+
+function toggleExportDropdown() {
+    const dropdown = document.getElementById('export-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('hidden');
+    }
 }
 
 // ===========================
@@ -845,8 +931,8 @@ function createMiniChart(canvas, data, config) {
             datasets: [{
                 label: yKey,
                 data: data.slice(0, 5).map(row => parseFloat(row[yKey]) || 0),
-                backgroundColor: 'rgba(99, 102, 241, 0.4)',
-                borderColor: '#6366f1',
+                backgroundColor: 'rgba(0, 229, 255, 0.3)',
+                borderColor: '#00e5ff',
                 borderWidth: 1,
                 fill: config.chart_type === 'area'
             }]
@@ -869,6 +955,54 @@ function updateSentinelStats(detections) {
 
     const criticalCount = detections.filter(d => d.severity === 'CRITICAL').length;
     elements.criticalAlertCount.textContent = criticalCount;
+}
+
+async function runDomainScan(domain) {
+    const sectionId = domain === 'risk' ? 'security' : domain;
+    const feedContainer = elements.feeds[sectionId];
+    const section = document.getElementById(`section-${sectionId}`);
+    const scanBtn = section?.querySelector('.section-scan-btn');
+
+    if (!feedContainer) return;
+
+    // Show loading state on button
+    if (scanBtn) {
+        scanBtn.disabled = true;
+        scanBtn.innerHTML = '<span class="scan-spinner"></span> SCANNING...';
+    }
+    feedContainer.innerHTML = '<div class="section-loading"><div class="scanner-bar"></div><p>Scanning...</p></div>';
+
+    try {
+        const response = await fetch(`${state.apiUrl}/api/v1/sentinel/scan/${domain}`);
+        const data = await response.json();
+
+        state.sentinelScans++;
+
+        // Render detections into the specific section
+        feedContainer.innerHTML = '';
+        const detections = data.detections || [];
+        detections.forEach(det => {
+            feedContainer.appendChild(createDetectionCard(det));
+        });
+
+        // Merge into global detections for stats
+        state.sentinelDetections = [
+            ...state.sentinelDetections.filter(d => {
+                const dSection = d.domain === 'risk' ? 'security' : d.domain;
+                return dSection !== sectionId;
+            }),
+            ...detections
+        ];
+        updateSentinelStats(state.sentinelDetections);
+    } catch (error) {
+        console.error(`Domain scan failed (${domain}):`, error);
+        feedContainer.innerHTML = `<div class="scan-error">Scan failed: ${error.message}</div>`;
+    } finally {
+        if (scanBtn) {
+            scanBtn.disabled = false;
+            scanBtn.innerHTML = '⚡ SCAN';
+        }
+    }
 }
 
 // ===========================
@@ -926,8 +1060,30 @@ elements.exampleItems.forEach(item => {
     });
 });
 
-elements.exportBtn.addEventListener('click', handleExport);
+elements.exportBtn.addEventListener('click', () => toggleExportDropdown());
 elements.sentinelBtn.addEventListener('click', toggleSentinelMode);
+if (elements.toggleViewBtn) {
+    elements.toggleViewBtn.addEventListener('click', () => {
+        if (!state.currentResults || state.currentResults.length === 0) return;
+        const vizContainer = document.getElementById('viz-container');
+        if (!vizContainer) return;
+        const isTable = vizContainer.querySelector('.data-table-container') !== null;
+        const targetType = isTable ? (state.currentVisConfig?.chart_type || 'bar') : 'table';
+        renderVisualization(targetType);
+
+        // Sync button active state in viz toolbar
+        const toolbar = elements.resultsContent.querySelector('.viz-toolbar');
+        if (toolbar) {
+            toolbar.querySelectorAll('.viz-btn').forEach(b => {
+                if (b.dataset.type === targetType) {
+                    b.classList.add('active');
+                } else {
+                    b.classList.remove('active');
+                }
+            });
+        }
+    });
+}
 
 // ===========================
 // Initialization
@@ -958,3 +1114,12 @@ if (document.readyState === 'loading') {
 } else {
     initialize();
 }
+
+// Close export dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('export-dropdown');
+    const exportBtn = elements.exportBtn;
+    if (dropdown && !dropdown.contains(e.target) && !exportBtn.contains(e.target)) {
+        dropdown.classList.add('hidden');
+    }
+});

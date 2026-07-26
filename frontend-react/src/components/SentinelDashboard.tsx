@@ -137,7 +137,7 @@ export default function SentinelDashboard({ historicalScan, onBackToLive }: Sent
             eventSourceRef.current.close();
         }
 
-        const es = new EventSource('http://localhost:8080/api/v1/sentinel/scan/stream');
+        const es = new EventSource('/api/v1/sentinel/scan/stream');
         eventSourceRef.current = es;
 
         es.addEventListener('scan_started', (e) => {

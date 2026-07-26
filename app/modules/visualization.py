@@ -9,52 +9,13 @@ class VisualizationModule:
     
     async def recommend(self, query: str, sql: str, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
-        Determines the best chart type and configuration.
+        Determines the best chart type and configuration using deterministic local heuristics in 0ms.
         """
         if not results:
             return None
             
-        # Take a sample of data to analyze (don't send huge datasets to LLM)
-        sample_data = results[:3]
         columns = list(results[0].keys())
-        
-        prompt = f"""
-You are a data visualization expert. Recommend the best chart type for the following data query.
-
-User Query: "{query}"
-SQL Query: "{sql}"
-Columns: {columns}
-Sample Data (first 3 rows):
-{json.dumps(sample_data, indent=2)}
-
-analyze the data and user intent. Return a JSON object with:
-- "chart_type": One of ["bar", "line", "pie", "doughnut", "scatter", "table", "box"] (Use "table" if no visualization is appropriate)
-- "title": A clear, descriptive title for the chart
-- "x_axis_key": The column name to use for the X-axis (labels)
-- "y_axis_key": The column name(s) to use for the Y-axis (values). Can be a single string or list of strings.
-- "label": Label for the dataset (e.g. "Revenue", "Count")
-- "description": Brief reason for choosing this chart
-
-Rules:
-- If comparing categories (e.g., count by status, sales by country), use "bar" or "pie".
-- If showing trends over time (e.g., daily active users), use "line".
-- If distribution of values, use "box" or "scatter".
-- If the data is just a list of unrelated items or details, use "table".
-- Ensure "x_axis_key" and "y_axis_key" EXACTLY match the column names in the Sample Data.
-
-Return ONLY the JSON object.
-"""
-        
-        try:
-            response = await llm_service.generate_response(prompt)
-            # Cleanup markdown
-            response = response.replace("```json", "").replace("```", "").strip()
-            config = json.loads(response)
-            return config
-        except Exception as e:
-            print(f"Visualization recommendation error: {e}")
-            # Fallback heuristic
-            return self._heuristic_fallback(columns, results)
+        return self._heuristic_fallback(columns, results)
             
     def _heuristic_fallback(self, columns: List[str], results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Simple heuristic if LLM fails"""

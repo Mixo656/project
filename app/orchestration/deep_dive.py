@@ -3,7 +3,7 @@ Deep Dive Generator - Autonomous Investigation Chains.
 When a mission finds suspicious data, this generates targeted follow-up queries
 using specific entity IDs from the results, like a detective following leads.
 """
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from app.core.config import settings
 import json
@@ -16,9 +16,10 @@ class DeepDiveGenerator:
     TRIGGER_THRESHOLD = 1
 
     def __init__(self):
-        self.llm = ChatGoogleGenerativeAI(
-            model=settings.DISCOVERY_MODEL,
-            google_api_key=settings.GEMINI_API_KEY,
+        self.llm = ChatOpenAI(
+            model=settings.OPENAI_MODEL_NAME,
+            api_key=settings.OPENAI_API_KEY,
+            base_url=settings.OPENAI_BASE_URL,
             temperature=0.7,
         )
 

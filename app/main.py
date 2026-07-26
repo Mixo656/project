@@ -48,15 +48,23 @@ app.include_router(redis_test_router)  # Redis/Valkey connectivity test
 def health_check():
     return {"status": "healthy"}
 
-# Serve frontend static files
+# Serve frontend static files — prioritize vanilla frontend (cyber theme)
 frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
 if os.path.exists(frontend_path):
     app.mount("/static", StaticFiles(directory=frontend_path), name="static")
-    
+
     @app.get("/")
     def serve_frontend():
-        """Serve the frontend HTML"""
+        """Serve the vanilla frontend HTML"""
         return FileResponse(os.path.join(frontend_path, "index.html"))
+
+    @app.get("/styles.css")
+    def serve_styles():
+        return FileResponse(os.path.join(frontend_path, "styles.css"), media_type="text/css")
+
+    @app.get("/script.js")
+    def serve_script():
+        return FileResponse(os.path.join(frontend_path, "script.js"), media_type="application/javascript")
 
 if __name__ == "__main__":
     import uvicorn

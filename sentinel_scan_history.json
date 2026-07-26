@@ -1,497 +1,5 @@
 [
   {
-    "timestamp": "2026-02-07T10:43:16.626972",
-    "missions": [
-      {
-        "name": "Anomalous Login Geolocation & Device Spikes",
-        "query": "Identify users exhibiting a sudden, significant increase in login attempts from geographically diverse or unusual device types within a short timeframe, potentially indicating credential stuffing or account takeover attempts.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "High-Frequency Transaction Anomalies Post-Login",
-        "query": "Correlate login event success with subsequent high-frequency, low-value transactions across multiple instruments for the same user, a pattern indicative of automated fraud or bot activity.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "KYC Status Drift in High-Risk Users",
-        "query": "Analyze users whose KYC status has recently been updated from 'verified' to 'pending' or 'failed', especially those with a high-risk_score or flagged as PEP, to detect potential circumvention or evolving risk profiles.",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "PEP Transactional Behavior Divergence",
-        "query": "Investigate PEP users whose transaction patterns (volume, frequency, instrument types) significantly deviate from their historical norms or from the average transactional behavior of non-PEP users within similar risk tiers.",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Payment Method Failure Clustering by User Segment",
-        "query": "Identify specific user segments (defined by age, risk_level, or KYC status) that exhibit a disproportionately high rate of transaction failures across particular payment methods, suggesting systemic issues or targeted exploitation.",
-        "domain": "operations",
-        "risk_score": 48,
-        "severity": "MEDIUM",
-        "data_count": 61
-      },
-      {
-        "name": "Account Status Changes Preceding Transactional Drop-offs",
-        "query": "Examine users whose account_status has recently changed, and analyze their transactional activity (or lack thereof) in the preceding period to identify potential precursor indicators of user churn or service disruption.",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Concentrated High-Risk Transactions by Instrument",
-        "query": "Determine if a significant portion of total transaction volume (especially in USD equivalent) for high-risk_score users is concentrated in a single instrument or a narrow range of instruments, indicating potential systemic risk exposure.",
-        "domain": "risk",
-        "risk_score": 47,
-        "severity": "MEDIUM",
-        "data_count": 24
-      },
-      {
-        "name": "Risk Score Correlation with Transactional Flags",
-        "query": "Quantify the correlation between a user's risk_score and the occurrence of flagged transactions (based on flag_reason), focusing on identifying thresholds where high risk scores do not adequately predict concerning transactional behavior.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      }
-    ],
-    "domain_scores": {
-      "security": 0,
-      "compliance": 0,
-      "operations": 24,
-      "risk": 24
-    },
-    "critical_domains": []
-  },
-  {
-    "timestamp": "2026-02-07T11:07:17.129357",
-    "missions": [
-      {
-        "name": "PEP Transactional Anomaly Detection",
-        "query": "For PEP users, identify deviations in transaction volume, frequency, and instrument usage that are not explained by their historical patterns or the typical behavior of users in similar risk tiers, but specifically look for patterns that might suggest illicit financial flows or sanctions evasion.",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Payment Failure Root Cause Segmentation",
-        "query": "Segment users experiencing payment failures by the 'flag_reason' and analyze if specific user demographics (age, risk_level) or transaction types are disproportionately affected by particular failure reasons, suggesting targeted vulnerabilities or exploitable weaknesses in payment processing.",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Instrument Concentration Risk Evolution",
-        "query": "Track the evolution of instrument concentration for high-risk_score users over time. Identify if users are shifting their high-volume transactions to a single or few instruments, and if this shift correlates with an increase in their risk_score or the emergence of new 'flag_reason' types.",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "High Risk Score Transaction Velocity Analysis",
-        "query": "For users with a risk_score above a defined high threshold, analyze their transaction velocity (amount and frequency) across different instruments and currencies. Identify if there are specific velocity patterns that are not adequately captured by the current risk scoring model, suggesting potential underestimation of risk.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Interconnected Risk Indicators Synergy",
-        "query": "Develop a model to identify users exhibiting a synergistic combination of multiple moderate risk indicators (e.g., unusual login country + moderate risk_score + recent KYC change + specific transaction pattern) that, individually, might be overlooked, but collectively represent a significantly elevated risk profile.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "KYC Risk Score Drift Analysis",
-        "query": "Investigate users whose KYC status has recently transitioned to 'pending' or 'failed', and analyze if there's a statistically significant correlation between this change and a recent increase in their risk_score, particularly for users who have previously conducted high-value transactions.",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Unusual Login Pattern Clustering",
-        "query": "Identify clusters of users exhibiting highly similar, yet individually anomalous, login patterns (e.g., same device type, close time proximity, but from different countries or cities) that do not fit standard account takeover or credential stuffing models, to uncover sophisticated, coordinated malicious activity.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Device Spoofing Detection",
-        "query": "Analyze login events for users who frequently switch between distinct device types in rapid succession, especially when originating from the same or geographically proximate locations, to detect potential device spoofing indicative of advanced account takeover techniques.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Transaction Volume vs. Login Activity Correlation",
-        "query": "Examine the correlation between periods of unusually high transaction volume for a user and their subsequent login activity (frequency, success rate, country of origin), to identify potential anomalies where high transaction activity might be initiated by unauthorized access.",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Portfolio Imbalance by KYC Status and Risk Level",
-        "query": "Analyze if there are significant imbalances in transaction volume and instrument exposure across different KYC statuses and risk_levels. Specifically, look for scenarios where users with 'pending' or 'failed' KYC, or higher risk_levels, are concentrated in specific high-risk instruments or transaction types.",
-        "domain": "risk",
-        "risk_score": 52,
-        "severity": "HIGH",
-        "data_count": 128
-      },
-      {
-        "name": "High-Risk PENDING KYC Users and Instrument Exposure",
-        "query": "For users with 'PENDING' KYC status and 'CRITICAL' risk_level, what is the total transaction volume and the specific instruments they have interacted with, particularly GOOGL and Gold?",
-        "domain": "risk",
-        "risk_score": 16,
-        "severity": "LOW",
-        "data_count": 3
-      },
-      {
-        "name": "Geographic Concentration of High-Risk Activity",
-        "query": "What are the countries and IP addresses associated with transactions involving users who have 'PENDING' KYC status and 'CRITICAL' risk_level, specifically for the GOOGL deposit and Gold fee transactions?",
-        "domain": "risk",
-        "risk_score": 21,
-        "severity": "LOW",
-        "data_count": 5
-      }
-    ],
-    "domain_scores": {
-      "compliance": 0,
-      "operations": 0,
-      "risk": 18,
-      "security": 0
-    },
-    "critical_domains": []
-  },
-  {
-    "timestamp": "2026-02-07T11:31:57.922223",
-    "missions": [
-      {
-        "name": "PEP Transactional Anomaly Detection Beyond Standard Deviations",
-        "query": "For Politically Exposed Persons (PEPs), identify significant deviations in transaction volume, frequency, and instrument usage that exceed a predefined multi-standard deviation threshold compared to their own historical patterns and the behavior of non-PEP users in similar risk tiers, specifically looking for patterns that might suggest sanctions evasion or illicit financial flows.",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Systemic Impact of Payment Method Vulnerabilities",
-        "query": "Identify if a significant proportion of transaction failures are attributable to a single or a limited set of payment methods, and analyze the correlation between these failures and specific user segments (e.g., high-risk users, new users) to understand potential systemic vulnerabilities in payment processing infrastructure.",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Synergistic Risk Indicator Aggregation for Overlooked Threats",
-        "query": "Develop a model to identify users exhibiting a synergistic combination of multiple moderate risk indicators (e.g., unusual login country + moderate risk_score + recent KYC change + specific transaction pattern in a high-risk instrument) that, individually, might be overlooked, but collectively represent a significantly elevated risk profile.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Velocity-Based Risk Undervaluation in High-Risk Users",
-        "query": "For users with a risk_score above a defined high threshold, analyze their transaction velocity (amount and frequency) across different instruments and currencies. Identify if there are specific velocity patterns that are not adequately captured by the current risk scoring model, suggesting potential underestimation of risk and opportunities for rapid capital flight or illicit accumulation.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Coordinated Account Takeover via Geographically Dispersed Anomalous Logins",
-        "query": "Identify clusters of users who have experienced simultaneous or near-simultaneous successful login events from geographically distant and disparate countries and cities, using identical or highly similar device types, to detect sophisticated, coordinated account takeover attempts.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Device Fingerprint Spoofing for Account Takeover",
-        "query": "Analyze login events for users who exhibit rapid and frequent changes in device type and operating system within a short timeframe, especially when originating from the same IP address or a narrow range of IPs, to identify potential device fingerprint spoofing indicative of advanced account takeover techniques.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "High-Volume Transactions from Unverified/High-Risk Users",
-        "query": "Quantify the total transaction volume and identify the specific instruments utilized by users whose KYC status is 'PENDING' or 'FAILED', and whose risk_level is 'HIGH' or 'CRITICAL', to assess potential exposure to illicit financial activities.",
-        "domain": "compliance",
-        "risk_score": 47,
-        "severity": "MEDIUM",
-        "data_count": 23
-      },
-      {
-        "name": "Payment Failure Root Cause Analysis by Transaction Type and User Segment",
-        "query": "Segment users experiencing payment failures by the 'flag_reason' and analyze if specific transaction types (e.g., deposits, withdrawals, specific instrument trades) and user demographics (age, risk_level, kyc_status) are disproportionately affected by particular failure reasons, suggesting targeted vulnerabilities or systemic weaknesses in payment processing.",
-        "domain": "operations",
-        "risk_score": 48,
-        "severity": "MEDIUM",
-        "data_count": 54
-      },
-      {
-        "name": "Concentrated High-Risk Instrument Exposure in Unverified Users",
-        "query": "Analyze if there are significant imbalances in transaction volume and instrument exposure across different KYC statuses. Specifically, look for scenarios where users with 'PENDING' or 'FAILED' KYC are disproportionately concentrated in specific high-risk instruments or transaction types, indicating potential money laundering or fraud vectors.",
-        "domain": "risk",
-        "risk_score": 52,
-        "severity": "HIGH",
-        "data_count": 57
-      },
-      {
-        "name": "Investigate High-Volume BTC/USD and ETH/USD Transactions by Risky Users",
-        "query": "Show me the user IDs and total transaction amounts for all transactions involving BTC/USD and ETH/USD where the user's KYC status is 'PENDING' or 'FAILED' and their risk level is 'HIGH' or 'CRITICAL'.",
-        "domain": "compliance",
-        "risk_score": 20,
-        "severity": "LOW",
-        "data_count": 6
-      },
-      {
-        "name": "Analyze Transaction Locations for Unverified High-Risk Users",
-        "query": "For users with 'PENDING' or 'FAILED' KYC status and 'HIGH' or 'CRITICAL' risk levels, what are the top originating countries and the total transaction volume associated with each country?",
-        "domain": "compliance",
-        "risk_score": 26,
-        "severity": "MEDIUM",
-        "data_count": 8
-      },
-      {
-        "name": "Investigate Uncategorized Withdrawal Failures",
-        "query": "For all users who experienced a WITHDRAWAL failure with no 'flag_reason', what are their user_ids and what were the specific payment_methods used?",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Analyze Deposit Failures for High-Risk, Pending KYC Users",
-        "query": "For users with 'risk_level' as 'CRITICAL' and 'kyc_status' as 'PENDING' who experienced DEPOSIT failures, what are their user_ids and what were the amounts and currencies of these failed transactions?",
-        "domain": "operations",
-        "risk_score": 7,
-        "severity": "LOW",
-        "data_count": 1
-      },
-      {
-        "name": "High-Risk Instrument Exposure for PENDING KYC Users",
-        "query": "Show me all users with 'PENDING' KYC status who have traded 'DAX', 'GOOGL', 'META', 'MSFT', 'Natural Gas', or 'Nikkei' instruments, and list the total transaction count and average transaction amount in USD for each.",
-        "domain": "risk",
-        "risk_score": 36,
-        "severity": "MEDIUM",
-        "data_count": 12
-      },
-      {
-        "name": "Withdrawal Patterns of PENDING KYC Users",
-        "query": "For users with 'PENDING' KYC status, list all withdrawals made. Include the total number of withdrawals, the total amount withdrawn in USD, and the payment methods used for these withdrawals.",
-        "domain": "risk",
-        "risk_score": 35,
-        "severity": "MEDIUM",
-        "data_count": 10
-      }
-    ],
-    "domain_scores": {
-      "compliance": 23,
-      "operations": 14,
-      "risk": 25,
-      "security": 0
-    },
-    "critical_domains": []
-  },
-  {
-    "timestamp": "2026-02-07T11:34:39.175572",
-    "missions": [
-      {
-        "name": "PEP Sanctions Evasion Pattern Analysis",
-        "query": "For Politically Exposed Persons (PEPs), identify significant deviations in transaction volume, frequency, and instrument usage that exceed a predefined multi-standard deviation threshold compared to their own historical patterns and the behavior of non-PEP users in similar risk tiers, specifically looking for patterns that might suggest sanctions evasion or illicit financial flows.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Payment Method Failure Synergy with User Segments",
-        "query": "Identify if a significant proportion of transaction failures are attributable to a single or a limited set of payment methods, and analyze the correlation between these failures and specific user segments (e.g., high-risk users, new users) to understand potential systemic vulnerabilities in payment processing infrastructure.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Composite Risk Indicator Model",
-        "query": "Develop a model to identify users exhibiting a synergistic combination of multiple moderate risk indicators (e.g., unusual login country + moderate risk_score + recent KYC change + specific transaction pattern in a high-risk instrument) that, individually, might be overlooked, but collectively represent a significantly elevated risk profile.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Coordinated Geo-Drifted ATO Detection",
-        "query": "Identify clusters of users exhibiting simultaneous or near-simultaneous successful login events originating from geographically distant and disparate countries and cities, utilizing identical or highly similar device types, to detect sophisticated, coordinated account takeover attempts.",
-        "domain": "security",
-        "risk_score": 15,
-        "severity": "LOW",
-        "data_count": 1
-      },
-      {
-        "name": "Advanced Device Spoofing for ATO",
-        "query": "Analyze login events for users exhibiting rapid and frequent changes in device type and operating system within a short timeframe, especially when originating from the same IP address or a narrow range of IPs, to identify potential device fingerprint spoofing indicative of advanced account takeover techniques.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Pending KYC & High-Risk Instrument Exposure",
-        "query": "Quantify the total transaction volume and identify the specific instruments utilized by users whose KYC status is 'PENDING' or 'FAILED', and whose risk_level is 'HIGH' or 'CRITICAL', to assess potential exposure to illicit financial activities.",
-        "domain": "compliance",
-        "risk_score": 47,
-        "severity": "MEDIUM",
-        "data_count": 23
-      },
-      {
-        "name": "Unflagged Withdrawal Failures & Payment Methods",
-        "query": "For all users who experienced a WITHDRAWAL failure with no 'flag_reason', what are their user_ids and what were the specific payment_methods used?",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Critical-Pending Users & Deposit Failures",
-        "query": "For users with 'risk_level' as 'CRITICAL' and 'kyc_status' as 'PENDING' who experienced DEPOSIT failures, what are their user_ids and what were the amounts and currencies of these failed transactions?",
-        "domain": "operations",
-        "risk_score": 10,
-        "severity": "LOW",
-        "data_count": 1
-      },
-      {
-        "name": "Pending KYC & High-Risk Instrument Concentration",
-        "query": "Show me all users with 'PENDING' KYC status who have traded 'DAX', 'GOOGL', 'META', 'MSFT', 'Natural Gas', or 'Nikkei' instruments, and list the total transaction count and average transaction amount in USD for each.",
-        "domain": "operations",
-        "risk_score": 33,
-        "severity": "MEDIUM",
-        "data_count": 12
-      },
-      {
-        "name": "High-Risk Crypto Transactions from Specific Locations",
-        "query": "What are the total transaction volumes for BTC/USD and ETH/USD from users with PENDING or FAILED KYC and HIGH or CRITICAL risk_level, specifically originating from IP addresses located in the United States and Germany?",
-        "domain": "compliance",
-        "risk_score": 6,
-        "severity": "LOW",
-        "data_count": 1
-      },
-      {
-        "name": "User-Specific Exposure to High-Volatility Instruments",
-        "query": "For the user_id associated with the highest total_transaction_volume for ETH/USD (58072.82), what are all the instruments they have transacted with, and what are their respective KYC status and risk_level?",
-        "domain": "compliance",
-        "risk_score": 18,
-        "severity": "LOW",
-        "data_count": 5
-      }
-    ],
-    "domain_scores": {
-      "risk": 0,
-      "security": 8,
-      "compliance": 18,
-      "operations": 22
-    },
-    "critical_domains": []
-  },
-  {
-    "timestamp": "2026-02-07T11:57:16.412420",
-    "missions": [
-      {
-        "name": "PEP Status Discrepancies in High-Volume Trading",
-        "query": "Analyze transactions for users flagged as 'is_pep' (Politically Exposed Person) and having a 'risk_level' of 'HIGH' or 'CRITICAL'. Specifically, look for significant transaction volumes in instruments not typically associated with public office or for transactions that bypass standard due diligence checks, suggesting potential misuse of PEP status for illicit financial activities.",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Intermittent Payment Method Failures",
-        "query": "Investigate users who repeatedly experience payment failures across multiple transaction types (deposit/withdrawal) using the same 'payment_method' within a 24-hour period, but with no consistent 'flag_reason'. This could indicate a systemic issue with a specific payment processor or an emerging fraud vector targeting particular payment channels.",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "User Performance Drop Post-Login Anomaly",
-        "query": "For users who have experienced an 'unusual login' event (e.g., from a new country or device type), analyze their subsequent transaction success rate and volume for a 48-hour period. Identify if there's a statistically significant drop in their trading activity or an increase in transaction failures, which could indicate account compromise or user distress.",
-        "domain": "operations",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Concentrated High-Risk Instrument Exposure by Age",
-        "query": "Segment users by age groups and analyze their exposure to high-risk instruments (e.g., highly volatile cryptocurrencies, leveraged derivatives). Identify if specific age demographics are disproportionately concentrated in these instruments, particularly if their 'risk_score' is also elevated, suggesting potential predatory targeting or immature risk assessment.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Collateralization Risk in High-Risk Accounts",
-        "query": "Examine users with a 'risk_level' of 'HIGH' or 'CRITICAL' and a 'kyc_status' of 'PENDING'. Analyze their transaction history to determine if they are engaging in significant leveraged trading or depositing assets that are highly susceptible to market volatility without adequate collateralization. This aims to identify potential cascading failures within a vulnerable user segment.",
-        "domain": "risk",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Suspicious Login Pattern Correlation",
-        "query": "Identify user clusters exhibiting successful logins from geographically disparate locations within a single hour, where the same user_id simultaneously attempts logins from multiple distinct cities and countries, using different device types but originating from a narrow range of IP addresses. This aims to detect advanced credential stuffing or botnet-driven account takeovers.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Anomalous Transactional Behavior Post-Login",
-        "query": "For users who experience a failed login attempt followed immediately by a successful login from a different country within 5 minutes, analyze their subsequent transaction patterns for any high-value transfers, exotic instrument trades, or rapid liquidation of assets within the next hour. This seeks to identify potential account takeovers where compromised credentials were used for immediate illicit activity.",
-        "domain": "security",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      },
-      {
-        "name": "Unflagged High-Risk International Transactions",
-        "query": "Identify all transactions where the 'flag_reason' is null, but the transaction involves users with 'PENDING' or 'FAILED' KYC status, a 'risk_level' of 'HIGH' or 'CRITICAL', and the transaction originated from a country not on a predefined list of low-risk jurisdictions. This aims to uncover potential AML/KYC evasion through unflagged international activity.",
-        "domain": "compliance",
-        "risk_score": 0,
-        "severity": "LOW",
-        "data_count": 0
-      }
-    ],
-    "domain_scores": {
-      "compliance": 0,
-      "operations": 0,
-      "risk": 0,
-      "security": 0
-    },
-    "critical_domains": []
-  },
-  {
     "timestamp": "2026-02-07T13:03:44.498431",
     "missions": [
       {
@@ -1372,6 +880,2301 @@
       "operations": 0,
       "risk": 0,
       "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-02-25T18:20:27.217818",
+    "missions": [
+      {
+        "name": "Basic Security Audit",
+        "query": "Show users with risk_level HIGH and account_status ACTIVE",
+        "domain": "security",
+        "risk_score": 52,
+        "severity": "HIGH",
+        "data_count": 58
+      }
+    ],
+    "domain_scores": {
+      "security": 52
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-02-25T19:19:21.782667",
+    "missions": [
+      {
+        "name": "Basic Security Audit",
+        "query": "Show users with risk_level HIGH and account_status ACTIVE",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-03-02T06:43:59.530299",
+    "missions": [
+      {
+        "name": "Basic Security Audit",
+        "query": "Show users with risk_level HIGH and account_status ACTIVE",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-03-02T06:48:41.213420",
+    "missions": [
+      {
+        "name": "Basic Security Audit",
+        "query": "Show users with risk_level HIGH and account_status ACTIVE",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-03-03T09:22:51.220231",
+    "missions": [
+      {
+        "name": "Basic Security Audit",
+        "query": "Show users with risk_level HIGH and account_status ACTIVE",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-03-03T09:31:24.713997",
+    "missions": [
+      {
+        "name": "Regulatory Non-Compliance",
+        "query": "What are the top 10 regulatory non-compliant transactions in the last quarter?",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Inconsistent KYC Data",
+        "query": "How many users have a confirmed KYC status but an incomplete PEP evaluation?",
+        "domain": "compliance",
+        "risk_score": 6,
+        "severity": "LOW",
+        "data_count": 1
+      },
+      {
+        "name": "Suspicious Account Activity",
+        "query": "What is the average transaction amount for users with a risk level of HIGH and account status ACTIVE in the last 30 days?",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Patterns",
+        "query": "How many login events have a device type that doesn't match the user's account device?",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate",
+        "query": "What is the average daily payment failure rate for users with a history of successful payments?",
+        "domain": "operations",
+        "risk_score": 6,
+        "severity": "LOW",
+        "data_count": 1
+      },
+      {
+        "name": "System Health Red Flags",
+        "query": "How many login events have a failure reason of 'invalid credentials' but were processed successfully?",
+        "domain": "operations",
+        "risk_score": 6,
+        "severity": "LOW",
+        "data_count": 1
+      },
+      {
+        "name": "PEP Gap in Transaction History",
+        "query": "How many transactions have a user with a confirmed PEP evaluation but no record of transactions?",
+        "domain": "compliance",
+        "risk_score": 15,
+        "severity": "LOW",
+        "data_count": 1
+      },
+      {
+        "name": "High-Risk Exposure",
+        "query": "What is the average monthly transaction amount for users with a risk level of HIGH?",
+        "domain": "risk",
+        "risk_score": 6,
+        "severity": "LOW",
+        "data_count": 1
+      }
+    ],
+    "domain_scores": {
+      "compliance": 7,
+      "security": 0,
+      "operations": 6,
+      "risk": 6
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-22T14:45:08.286055",
+    "missions": [
+      {
+        "name": "Structuring/Smurfing Detection Near Reporting Thresholds",
+        "query": "Detect users who have conducted 3 or more transactions of amount_usd between $9,000 and $10,000 (just below common $10k reporting thresholds) within a 7-day rolling window, across any currency, indicating potential structuring to avoid AML reporting.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Risk Score Calibration Drift",
+        "query": "Identify users currently classified as risk_level 'LOW' or 'MEDIUM' whose transaction behavior in the last 30 days exhibits high-risk typologies: cross-border velocity >5 countries, transaction velocity >100 txns/day, or >50% of volume in high-risk instruments (e.g., crypto, forex). These users may require immediate risk re-rating.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Correlation with Risk Controls",
+        "query": "Analyze the payment failure rate (status='failed') grouped by payment_method and user risk_level. Identify if HIGH risk users experience significantly higher failure rates on specific payment methods (e.g., card vs. bank_transfer), suggesting overly aggressive fraud controls or systemic integration issues.",
+        "domain": "operations",
+        "risk_score": 35,
+        "severity": "MEDIUM",
+        "data_count": 15
+      },
+      {
+        "name": "Impossible Travel & Geo-Velocity Anomaly",
+        "query": "Identify users who have successful login events from two different countries within a time window that makes physical travel impossible (e.g., less than 4 hours), indicating potential account takeover or credential sharing.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP Transaction Monitoring Gap",
+        "query": "List all Politically Exposed Persons (is_pep=true) who have executed transactions exceeding $50,000 USD in the last 90 days but have no corresponding 'flag_reason' indicating enhanced due diligence (EDD) review, signaling a compliance monitoring gap.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Single Instrument Concentration Risk",
+        "query": "Calculate the Herfindahl-Hirschman Index (HHI) of transaction volume by instrument for each user. Flag users where a single instrument (e.g., a specific stock, crypto, or forex pair) represents >80% of their total transaction volume_usd in the last quarter, indicating dangerous concentration risk and potential market manipulation exposure.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High Volume / Low Activity Bot Signature",
+        "query": "Find users with high transaction counts (>50 txns in 30 days) but extremely low login frequency (<2 logins in same period), and where transaction timestamps show non-human regularity (e.g., exact hourly intervals), indicating potential API abuse, bot activity, or compromised automated trading keys.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Credential Stuffing Pattern Detection",
+        "query": "Find users with a high volume of failed login attempts (status='failed') from multiple distinct device_types or countries within a 1-hour window, immediately followed by a successful login, suggesting automated credential stuffing attacks.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "compliance": 0,
+      "risk": 0,
+      "operations": 18,
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-22T17:49:42.205513",
+    "missions": [
+      {
+        "name": "PEP Transactions without Enhanced Due Diligence",
+        "query": "List all Politically Exposed Persons (is_pep=true) who have executed transactions exceeding $20,000 USD in the last 60 days but have no corresponding 'flag_reason' indicating enhanced due diligence (EDD) review, signaling a compliance monitoring gap.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Anomalous Device Login Activity",
+        "query": "Find users with a high volume of failed login attempts (status='failed') from multiple distinct device_types or countries within a 1-hour window, but without any successful logins in the same period, suggesting automated credential stuffing attacks.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Frequency and Transaction Patterns",
+        "query": "Find users with high transaction counts (>50 txns in 30 days) but extremely low login frequency (<2 logins in same period), and where transaction timestamps show non-human regularity (e.g., exact hourly intervals), indicating potential API abuse, bot activity, or compromised automated trading keys.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk User Transaction Velocity",
+        "query": "Identify users currently classified as risk_level 'LOW' or 'MEDIUM' whose transaction behavior in the last 30 days exhibits high-risk typologies: transaction velocity >200 txns/day, or >30% of volume in high-risk instruments (e.g., crypto, forex). These users may require immediate risk re-rating.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate by Payment Method and User Risk Level",
+        "query": "Analyze the payment failure rate (status='failed') grouped by payment_method and user risk_level. Identify if HIGH risk users experience significantly higher failure rates on specific payment methods (e.g., card vs. bank_transfer), suggesting overly aggressive fraud controls or systemic integration issues.",
+        "domain": "operations",
+        "risk_score": 35,
+        "severity": "MEDIUM",
+        "data_count": 15
+      },
+      {
+        "name": "Cross-Border Transaction Velocity",
+        "query": "Identify users who have conducted transactions in >5 countries within the last 30 days, with a total transaction value exceeding $10,000 USD, indicating potential high-risk cross-border activity.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Instrument Concentration",
+        "query": "Calculate the Herfindahl-Hirschman Index (HHI) of transaction volume by instrument for each user. Flag users where a single instrument (e.g., a specific stock, crypto, or forex pair) represents >90% of their total transaction volume_usd in the last quarter, indicating dangerous concentration risk and potential market manipulation exposure.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Bot-Like Activity",
+        "query": "Find users with a high volume of transactions (>20 txns in 30 days) executed at exact hourly intervals, with no corresponding login activity in the same period, suggesting potential bot activity or compromised automated trading keys.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "compliance": 0,
+      "security": 0,
+      "operations": 12,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T16:52:16.693583",
+    "missions": [
+      {
+        "name": "Account Takeover Detection",
+        "query": "Identify users who have conducted transactions in multiple countries within a 1-hour window, with no corresponding login activity in the same period, suggesting potential bot activity or compromised automated trading keys.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violation Monitoring",
+        "query": "List all users who have executed transactions exceeding $50,000 USD in the last 90 days, but have no corresponding 'flag_reason' indicating enhanced due diligence (EDD) review, signaling a compliance monitoring gap.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment System Health Check",
+        "query": "Analyze the payment failure rate (status='failed') grouped by payment_method and user risk_level. Identify if HIGH risk users experience significantly higher failure rates on specific payment methods, suggesting overly aggressive fraud controls or systemic integration issues.",
+        "domain": "operations",
+        "risk_score": 39,
+        "severity": "MEDIUM",
+        "data_count": 15
+      },
+      {
+        "name": "Risk Exposure Assessment",
+        "query": "Find users with a high volume of transactions (>20 txns in 30 days) executed at exact hourly intervals, but without any corresponding login activity in the same period, suggesting potential bot activity or compromised automated trading keys.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Activity Detection",
+        "query": "Identify users who have successful login events from multiple distinct countries within a time window that makes physical travel impossible (e.g., less than 4 hours), indicating potential account takeover or credential sharing.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Concentration Risk Monitoring",
+        "query": "Calculate the Herfindahl-Hirschman Index (HHI) of transaction volume by instrument for each user. Flag users where a single instrument represents >80% of their total transaction volume_usd in the last quarter, indicating dangerous concentration risk and potential market manipulation exposure.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Performance Optimization",
+        "query": "Find users with high transaction counts (>50 txns in 30 days) but extremely low login frequency (<2 logins in same period), and where transaction timestamps show non-human regularity (e.g., exact hourly intervals), indicating potential API abuse, bot activity, or compromised automated trading keys.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk User Identification",
+        "query": "Identify users currently classified as risk_level 'LOW' or 'MEDIUM' whose transaction behavior in the last 30 days exhibits high-risk typologies: transaction velocity >200 txns/day, or >30% of volume in high-risk instruments (e.g., crypto, forex). These users may require immediate risk re-rating.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 20,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T16:54:34.003807",
+    "missions": [
+      {
+        "name": "Unusual Login Activity from Unstable IP Addresses",
+        "query": "Find users with login events from IP addresses with a high number of failed login attempts within the last 24 hours.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Risk Level Reevaluation based on Transaction Velocity",
+        "query": "Identify users with a risk level of 'LOW' or 'MEDIUM' who have exhibited high-risk transaction typologies such as transaction velocity >100 txns/day within the last 30 days.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Cross-Border Activity with High-Risk Instruments",
+        "query": "Find users who have conducted transactions in >3 countries within the last 30 days with a total transaction value exceeding $5,000 USD, specifically using high-risk instruments like crypto or forex.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Transaction Patterns from Multiple Devices",
+        "query": "Identify users with a high volume of transactions (>15 txns in 30 days) executed from multiple distinct device_types within the last quarter, indicating potential bot activity or compromised automated trading keys.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP Monitoring with High-Risk Transaction Behavior",
+        "query": "List all Politically Exposed Persons (is_pep=true) who have executed transactions exceeding $15,000 USD in the last 60 days and have shown high-risk transaction typologies such as transaction velocity >50 txns/day or >20% of volume in high-risk instruments.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate Analysis by Payment Method",
+        "query": "Analyze the payment failure rate (status='failed') grouped by payment_method and user risk_level to identify if HIGH risk users experience significantly higher failure rates on specific payment methods.",
+        "domain": "operations",
+        "risk_score": 35,
+        "severity": "MEDIUM",
+        "data_count": 15
+      },
+      {
+        "name": "Unusual Transaction Activity with No Corresponding Login Events",
+        "query": "Find users with a high volume of transactions (>10 txns in 30 days) executed at exact hourly intervals, but without any corresponding login activity in the same period, suggesting potential bot activity or compromised automated trading keys.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Risk Level Reevaluation based on High-Risk Instrument Exposure",
+        "query": "Identify users who have a risk level of 'LOW' or 'MEDIUM' but have a high exposure to high-risk instruments (e.g., crypto, forex) within the last 30 days, indicating a potential increase in risk.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "risk": 0,
+      "operations": 12,
+      "compliance": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T16:56:54.247499",
+    "missions": [
+      {
+        "name": "Unusual Transactions by User",
+        "query": "Find users who have executed transactions in multiple countries within a 1-hour window, with no corresponding login activity in the same period, and have a risk level of 'HIGH' or 'MEDIUM'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violations by User",
+        "query": "List all users who have executed transactions exceeding $100,000 USD in the last 90 days, but have no corresponding 'flag_reason' indicating enhanced due diligence (EDD) review, signaling a compliance monitoring gap.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health by Region",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and identify if specific regions experience significantly higher failure rates, indicating systemic integration issues.",
+        "domain": "operations",
+        "risk_score": 35,
+        "severity": "MEDIUM",
+        "data_count": 15
+      },
+      {
+        "name": "Portfolio Imbalances by User",
+        "query": "Calculate the Herfindahl-Hirschman Index (HHI) of transaction volume by instrument for each user and flag users where a single instrument represents >90% of their total transaction volume_usd in the last quarter, indicating dangerous concentration risk.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Account Takeovers by IP",
+        "query": "Identify users with login events from IP addresses that have been involved in >10 failed login attempts within the last 24 hours, indicating potential account takeover or credential sharing.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Gaps by User",
+        "query": "Find users who have executed transactions exceeding $50,000 USD in the last 90 days, but have no corresponding 'flag_reason' indicating KYC review, signaling a compliance monitoring gap.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Performance by Payment Method",
+        "query": "Analyze the payment failure rate (status='failed') grouped by payment_method and identify if specific payment methods experience significantly higher failure rates, indicating overly aggressive fraud controls or systemic integration issues.",
+        "domain": "operations",
+        "risk_score": 18,
+        "severity": "LOW",
+        "data_count": 5
+      },
+      {
+        "name": "High-Risk Exposure by User",
+        "query": "Find users with a risk level of 'LOW' or 'MEDIUM' who have exhibited high-risk transaction typologies such as transaction velocity >50 txns/day within the last 30 days and have executed transactions in >2 countries within the last 30 days, indicating potential high-risk exposure.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 26,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T16:58:39.497047",
+    "missions": [
+      {
+        "name": "Unusual Login Activity",
+        "query": "Identify users with login events from IP addresses that have been involved in >5 failed login attempts within the last 7 days, indicating potential account takeover or credential sharing.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP High-Risk Transaction Velocity",
+        "query": "Find Politically Exposed Persons (is_pep=true) who have executed transactions exceeding $10,000 USD in the last 45 days and have shown high-risk transaction typologies such as transaction velocity >30 txns/day or >15% of volume in high-risk instruments.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health Check",
+        "query": "Analyze the payment success rate (status='success') grouped by region (extracted from country) and identify if specific regions experience significantly lower success rates, indicating systemic integration issues.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Instrument Concentration",
+        "query": "Calculate the Herfindahl-Hirschman Index (HHI) of transaction volume by high-risk instrument (e.g., crypto, forex) for each user and flag users where a single high-risk instrument represents >75% of their total transaction volume_usd in the last quarter, indicating dangerous concentration risk.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Potential Bot Activity",
+        "query": "Find users who have executed transactions in multiple countries within a 2-hour window, with no corresponding login activity in the same period, and have a risk level of 'HIGH' or 'MEDIUM'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Review Monitoring Gap",
+        "query": "List all users who have executed transactions exceeding $75,000 USD in the last 120 days, but have no corresponding 'flag_reason' indicating KYC review, signaling a compliance monitoring gap.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Performance Analysis",
+        "query": "Analyze the average transaction volume per user over the last quarter and identify users with a significant increase ( >50%) in transaction volume within the last 30 days, indicating potential user performance issues.",
+        "domain": "operations",
+        "risk_score": 6,
+        "severity": "LOW",
+        "data_count": 1
+      },
+      {
+        "name": "Portfolio Imbalance Risk",
+        "query": "Calculate the standard deviation of transaction volume by instrument for each user and flag users where a single instrument represents >50% of their total transaction volume_usd in the last quarter, indicating potential portfolio imbalance risk.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 3,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T17:11:18.318817",
+    "missions": [
+      {
+        "name": "Unusual Country Jumps",
+        "query": "Find users who have executed transactions in at least 5 different countries within the last 30 days, without any corresponding login activity in the same period.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP High-Risk Exposure",
+        "query": "Identify Politically Exposed Persons (is_pep=true) who have executed transactions in high-risk instruments (e.g., crypto, forex) and have shown high-risk transaction typologies such as transaction velocity >20 txns/day within the last 60 days.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Risk Level Misalignment",
+        "query": "Find users with a risk level of 'LOW' who have executed transactions in high-risk instruments (e.g., crypto, forex) and have shown high-risk transaction typologies such as transaction velocity >15 txns/day within the last 60 days.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment System Instability",
+        "query": "Analyze the payment failure rate (status='failed') grouped by country and identify if specific countries experience significantly higher failure rates, indicating systemic integration issues or potential account takeovers.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Behavior Anomalies",
+        "query": "Find users who have executed transactions in multiple countries within a 1-hour window, without any corresponding login activity in the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violations",
+        "query": "Identify users who have executed transactions exceeding $25,000 USD in the last 90 days, but have no corresponding 'flag_reason' indicating regulatory review, signaling a compliance monitoring gap.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Portfolio Imbalance",
+        "query": "Calculate the standard deviation of transaction volume by instrument for each user and flag users where a single instrument represents >30% of their total transaction volume_usd in the last quarter, indicating potential portfolio imbalance risk.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Account Takeover Suspicions",
+        "query": "Identify users with login events from IP addresses that have been involved in >15 failed login attempts within the last 14 days, indicating potential account takeover or credential sharing.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "operations": 0,
+      "compliance": 0,
+      "risk": 0,
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T17:14:36.944799",
+    "missions": [
+      {
+        "name": "Unusual Login Patterns",
+        "query": "Find users with login events from IP addresses that have been involved in >10 failed login attempts within the last 28 days, and have shown high-risk transaction typologies such as transaction velocity >25 txns/day within the last 90 days.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Compliance Gaps in High-Risk Instruments",
+        "query": "Identify users who have executed transactions in high-risk instruments (e.g., crypto, forex) without any corresponding 'flag_reason' indicating regulatory review, signaling a compliance monitoring gap, within the last 120 days.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Transaction Concentration Risk in Multiple Countries",
+        "query": "Find users who have executed transactions in multiple countries (>= 3) within a 2-hour window, with no corresponding login activity in the same period, and have a risk level of 'MEDIUM' or 'HIGH', indicating potential concentration risk.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Systemic Integration Issues in Payment Failures",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and identify if specific regions experience significantly higher failure rates, indicating systemic integration issues or potential account takeovers, within the last 30 days.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Portfolio Imbalance Risk in Multiple Instruments",
+        "query": "Calculate the standard deviation of transaction volume by instrument for each user and flag users where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter, indicating potential portfolio imbalance risk.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Transaction Patterns in High-Risk Exposures",
+        "query": "Find users who have executed transactions exceeding $50,000 USD in the last 60 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Account Takeover Risks in High-Risk Instruments",
+        "query": "Identify users with login events from IP addresses that have been involved in >5 failed login attempts within the last 14 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, indicating potential account takeover or credential sharing.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Performance Issues in Transaction Volume",
+        "query": "Analyze the average transaction volume per user over the last quarter and identify users with a significant decrease ( >40%) in transaction volume within the last 60 days, indicating potential user performance issues.",
+        "domain": "operations",
+        "risk_score": 6,
+        "severity": "LOW",
+        "data_count": 1
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "risk": 0,
+      "operations": 3
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T17:15:32.416290",
+    "missions": [
+      {
+        "name": "Unusual Login Activity",
+        "query": "Identify users with login events from IP addresses that have been involved in >10 failed login attempts within the last 30 days, and have executed transactions in multiple countries (>= 3) within a 2-hour window, without any corresponding login activity in the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Instrument Usage",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) without any corresponding 'flag_reason' indicating regulatory review, signaling a compliance monitoring gap, within the last 120 days, and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Systemic Integration Issues",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and identify if specific regions experience significantly higher failure rates, indicating systemic integration issues or potential account takeovers, within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Portfolio Imbalance Risk",
+        "query": "Calculate the standard deviation of transaction volume by instrument for each user and flag users where a single instrument represents >30% of their total transaction volume_usd in the last quarter, and identify users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in multiple countries (>= 3) within a 2-hour window, without any corresponding login activity in the same period.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violations",
+        "query": "Find users who have executed transactions exceeding $50,000 USD in the last 60 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Performance Issues",
+        "query": "Analyze the average transaction volume per user over the last quarter and identify users with a significant decrease ( >40%) in transaction volume within the last 60 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Account Takeover Risk",
+        "query": "Identify users with login events from IP addresses that have been involved in >5 failed login attempts within the last 14 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Concentration Risk",
+        "query": "Find users who have executed transactions in multiple countries (>= 3) within a 2-hour window, with no corresponding login activity in the same period, and have a risk level of 'MEDIUM' or 'HIGH', and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 0,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T17:23:59.005319",
+    "missions": [
+      {
+        "name": "Unusual Transaction Velocity",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) with a transaction velocity >10 txns/day within the last 30 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Geographical Convergence of High-Risk Activity",
+        "query": "Identify regions where multiple users have executed transactions in high-risk instruments (e.g., crypto, forex) within a 2-hour window, with no corresponding login activity in the same period, and have a risk level of 'MEDIUM' or 'HIGH' within the last 60 days.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Anomalies",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and identify if specific regions experience significantly higher failure rates ( > 10%) within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Concentration of High-Risk Exposure",
+        "query": "Find users who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Systemic Integration Issues",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly higher failure rates ( > 5%) within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Activity Patterns",
+        "query": "Identify users with login events from IP addresses that have been involved in >10 failed login attempts within the last 30 days, and have executed transactions in multiple countries (>= 3) within a 2-hour window, without any corresponding login activity in the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Potential Account Takeovers",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have login events from IP addresses that have been involved in >5 failed login attempts within the last 14 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Performance Degradation",
+        "query": "Analyze the average transaction volume per user over the last quarter and identify users with a significant decrease ( > 30%) in transaction volume within the last 60 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "operations": 0,
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T17:56:20.888227",
+    "missions": [
+      {
+        "name": "Unusual Transaction Velocity in Multiple Countries",
+        "query": "Identify users who have executed transactions in multiple countries (>= 3) within a 2-hour window, with a transaction velocity > 20 txns/day, and have a risk level of 'MEDIUM' or 'HIGH' within the last 60 days.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Compliance Monitoring Gap in High-Risk Instruments",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) without any corresponding 'flag_reason' indicating regulatory review, signaling a compliance monitoring gap, within the last 120 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Significant Decrease in Transaction Volume with High-Risk Exposure",
+        "query": "Analyze the average transaction volume per user over the last quarter and identify users with a significant decrease ( > 30%) in transaction volume within the last 60 days, who have also executed transactions exceeding $50,000 USD within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "risk",
+        "risk_score": 6,
+        "severity": "LOW",
+        "data_count": 1
+      },
+      {
+        "name": "Account Takeovers in Multiple Regions",
+        "query": "Identify regions where multiple users have executed transactions in high-risk instruments (e.g., crypto, forex) within a 2-hour window, with no corresponding login activity in the same period, and have a risk level of 'MEDIUM' or 'HIGH' within the last 60 days.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Systemic Integration Issues in Payment Failures",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and identify if specific regions experience significantly higher failure rates ( > 10%) within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure with Unusual Transaction Patterns",
+        "query": "Find users who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Compliance Monitoring Gap in Payment Failures",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly higher failure rates ( > 5%) within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Transaction Patterns with High-Risk Instruments",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have login events from IP addresses that have been involved in >5 failed login attempts within the last 14 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 2,
+      "compliance": 0,
+      "security": 0,
+      "operations": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T17:56:59.300385",
+    "missions": [
+      {
+        "name": "Unusual Login Activity with High-Risk Transactions",
+        "query": "Find users with login events from IP addresses that have been involved in >10 failed login attempts within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Potential Account Takeover through Multiple Devices",
+        "query": "Identify users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have login events from multiple devices (>= 3) with different user agents within a 2-hour window, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Transaction Patterns without Regulatory Review",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) without any corresponding 'flag_reason' indicating regulatory review, signaling a compliance monitoring gap, within the last 120 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unverified or Expiring KYC for High-Risk Users",
+        "query": "Identify users with a risk level of 'MEDIUM' or 'HIGH' who have unverified or expiring KYC (within 30 days of kyc_expiry_date) and have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate by Region and Instrument",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates ( > 10%) within the last 30 days.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Performance: Transaction Volume Decrease and High-Risk Instruments",
+        "query": "Analyze the average transaction volume per user over the last quarter and identify users with a significant decrease ( > 30%) in transaction volume within the last 60 days, who have also executed transactions exceeding $50,000 USD within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Portfolio Imbalances: High-Risk Instruments and Unusual Transaction Patterns",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure: Transaction Velocity and Unusual Transaction Patterns",
+        "query": "Find users who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 0,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T17:59:46.635655",
+    "missions": [
+      {
+        "name": "High-Risk Instrument Activity with Unverified KYC",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate by Region and Instrument with High Transaction Volume",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates ( > 10%) within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Transaction Patterns with High-Risk Exposure",
+        "query": "Find users who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Users with Multiple Devices and High-Risk Instruments",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have login events from multiple devices (>= 3) with different user agents within a 2-hour window, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Gaps with High-Risk Instrument Activity",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate by Instrument with High Standard Deviation",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly higher failure rates ( > 5%) within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure with Unusual Login Activity",
+        "query": "Find users who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have login events from IP addresses that have been involved in >10 failed login attempts within the last 30 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Users with Decreased Transaction Volume and High-Risk Instrument Activity",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have shown a significant decrease ( > 30%) in transaction volume within the last 60 days, and have a risk level of 'MEDIUM' or 'HIGH'.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "compliance": 0,
+      "operations": 0,
+      "risk": 0,
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-25T18:01:42.181834",
+    "missions": [
+      {
+        "name": "Detect Account Takeovers",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments within the last 60 days and have login events from IP addresses that have been involved in >5 failed login attempts within the last 14 days, and have unverified or expiring KYC (within 30 days of kyc_expiry_date)",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Monitor PEP Exposure",
+        "query": "Identify users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Analyze System Health",
+        "query": "Find users with login events from IP addresses that have been involved in >10 failed login attempts within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and identify if specific regions and instruments experience significantly higher failure rates ( > 10%) within the last 30 days",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Identify High-Risk Exposure",
+        "query": "Find users who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Detect Unusual Login Activity",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have login events from multiple devices (>= 3) with different user agents within a 2-hour window, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Monitor AML Risks",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates ( > 10%) within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Analyze Payment Failure Rate",
+        "query": "Find users who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have login events from IP addresses that have been involved in >10 failed login attempts within the last 30 days, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Identify Portfolio Imbalances",
+        "query": "Find users who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have shown a significant decrease ( > 30%) in transaction volume within the last 60 days, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 0,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T04:25:15.667260",
+    "missions": [
+      {
+        "name": "Suspicious Transaction Velocity",
+        "query": "Find users with a transaction velocity > 30 txns/day and > 20% of volume in high-risk instruments within the last 90 days, with a risk level of 'HIGH' and unverified or expiring KYC (within 30 days of kyc_expiry_date)",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Login Event Anomalies",
+        "query": "Identify users with login events from multiple devices (>= 5) with different user agents within a 1-hour window, and have a risk level of 'MEDIUM' or 'HIGH' within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex)",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate by Region",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates ( > 15%) within the last 60 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >25% of their total transaction volume_usd in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Patterns",
+        "query": "Find users with login events from IP addresses that have been involved in > 5 failed login attempts within the last 14 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Transaction Volume Imbalances",
+        "query": "Find users with a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >30% of their total transaction volume_usd in the last quarter, and have a risk level of 'HIGH' and executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Failed Login Attempts",
+        "query": "Identify users with login events from IP addresses that have been involved in > 20 failed login attempts within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unverified KYC and High-Risk Transactions",
+        "query": "Find users with unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days and have shown a significant decrease ( > 40%) in transaction volume within the last 60 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health Anomalies",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly higher failure rates ( > 12%) within the last 45 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "security": 0,
+      "operations": 0,
+      "compliance": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T04:33:10.139900",
+    "missions": [
+      {
+        "name": "High-Risk Exposure",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments within the last 90 days and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Activity",
+        "query": "Identify users with login events from IP addresses that have been involved in > 15 failed login attempts within the last 30 days and have executed transactions in high-risk instruments within the same period and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Transaction Velocity",
+        "query": "Find users with a transaction velocity > 25 txns/day and > 20% of volume in high-risk instruments within the last 90 days and have a risk level of 'MEDIUM' or 'HIGH' and unverified or expiring KYC (within 30 days of kyc_expiry_date)",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument and identify if specific regions and instruments experience significantly higher failure rates ( > 12%) within the last 60 days and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Gaps",
+        "query": "Find users with unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments within the last 60 days and have shown a significant decrease ( > 35%) in transaction volume within the last 60 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Device Fingerprinting",
+        "query": "Identify users with login events from multiple devices (>= 5) with different user agents within a 1-hour window and have a risk level of 'MEDIUM' or 'HIGH' within the last 30 days and have executed transactions in high-risk instruments (e.g., crypto, forex)",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violations",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly higher failure rates ( > 10%) within the last 60 days and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >25% of their total transaction volume_usd in the last quarter and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "User Performance",
+        "query": "Find users who have executed transactions exceeding $150,000 USD in the last 120 days with a high-risk exposure (e.g., transaction velocity > 20 txns/day or > 15% of volume in high-risk instruments) and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "security": 0,
+      "operations": 0,
+      "compliance": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T04:34:09.672446",
+    "missions": [
+      {
+        "name": "Risk-Exposure-Portfolio",
+        "query": "Identify users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter) and have a high transaction velocity (> 20 txns/day)",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Account-Takeover-IP",
+        "query": "Find users who have login events from IP addresses that have been involved in > 5 failed login attempts within the last 14 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and identify if specific IP addresses and regions experience significantly higher failure rates (> 15%) within the last 14 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment-Failure-Regions",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates (> 12%) within the last 45 days, and have a high transaction volume (> $100,000 USD) in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC-Gaps-Regions",
+        "query": "Find users with unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have shown a significant decrease (> 40%) in transaction volume within the last 60 days, and identify if specific regions experience significantly higher KYC gaps within the last 30 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual-Login-Devices",
+        "query": "Identify users with login events from multiple devices (>= 5) with different user agents within a 1-hour window, and have a risk level of 'MEDIUM' or 'HIGH' within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and identify if specific devices and user agents experience significantly higher login rates (> 20%) within the last 30 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk-Exposure-Users",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity >20 txns/day or >15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >30% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "AML-Monitoring-Regions",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates (> 12%) within the last 45 days, and have a high transaction volume (> $100,000 USD) in the last quarter, and identify if specific regions experience significantly higher AML monitoring alerts within the last 30 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Transaction-Velocity-Users",
+        "query": "Find users with a transaction velocity > 30 txns/day and > 20% of volume in high-risk instruments within the last 90 days, with a risk level of 'HIGH' and unverified or expiring KYC (within 30 days of kyc_expiry_date), and have shown a significant decrease (> 40%) in transaction volume within the last 60 days, and identify if specific users experience significantly higher transaction velocity (> 30 txns/day) within the last 90 days",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "security": 0,
+      "operations": 0,
+      "compliance": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:05:31.317911",
+    "missions": [
+      {
+        "name": "User Login Patterns",
+        "query": "Identify users with login events from multiple IP addresses within a 2-hour window and have a risk level of 'MEDIUM' or 'HIGH' within the last 30 days, and have executed transactions in high-risk instruments within the same period",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Attempts",
+        "query": "Identify users with login events from IP addresses that have been involved in > 10 failed login attempts within the last 20 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH' and identify if specific IP addresses and regions experience significantly higher failure rates (> 18%) within the last 20 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:06:31.383979",
+    "missions": [
+      {
+        "name": "Anomalous High-Risk Instrument Activity",
+        "query": "Find users with a high-risk instrument usage pattern (e.g., > 5 instruments within 30 days) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions exceeding $50,000 USD within the same period",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Potential Account Takeovers via Unusual Logins",
+        "query": "Identify users with login events from IP addresses that have been involved in > 10 failed login attempts within the last 14 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Gaps in High-Risk Regions",
+        "query": "Find users with unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and identify if specific regions experience significantly higher KYC gaps within the last 30 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health: Payment Failure Rate by Region and Instrument",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates (> 15%) within the last 45 days, and have a high transaction volume (> $150,000 USD) in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Transaction Patterns in High-Risk Regions",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions exceeding $100,000 USD in the last 90 days, with a high-risk exposure (e.g., transaction velocity > 25 txns/day or > 15% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >30% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Potential PEP Monitoring Risks",
+        "query": "Identify users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter) and have a high transaction velocity (> 25 txns/day)",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health: User Performance and Login Rates",
+        "query": "Analyze the login rates (status='success' or 'failed') grouped by device and user agent, and identify if specific devices and user agents experience significantly higher login rates (> 20%) within the last 30 days, and have a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Potential Unusual Activity in High-Risk Regions",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have shown a significant decrease (> 35%) in transaction volume within the last 60 days, and identify if specific regions experience significantly higher AML monitoring alerts within the last 30 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "security": 0,
+      "compliance": 0,
+      "operations": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:06:36.583891",
+    "missions": [
+      {
+        "name": "High-Risk Instrument Velocity",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments with a transaction velocity > 15 txns/day within the last 60 days and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Device Activity",
+        "query": "Identify users with login events from multiple devices (>= 5) with different user agents within a 1-hour window and have a risk level of 'MEDIUM' or 'HIGH' within the last 30 days who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period and have a high transaction velocity (> 20 txns/day)",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Expiry and High-Risk Activity",
+        "query": "Find users with unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days and have shown a significant increase (> 30%) in transaction volume within the last 60 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Failed Login Attempts and High-Risk Instruments",
+        "query": "Identify users with login events from IP addresses that have been involved in > 10 failed login attempts within the last 21 days and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period and have a risk level of 'MEDIUM' or 'HIGH'",
+        "domain": "security",
+        "risk_score": 42,
+        "severity": "MEDIUM",
+        "data_count": 230569
+      },
+      {
+        "name": "Portfolio Imbalance and High-Risk Exposure",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions exceeding $50,000 USD in the last 90 days with a high-risk exposure (e.g., transaction velocity > 20 txns/day or > 15% of volume in high-risk instruments) and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >30% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate by Region and Instrument",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument and identify if specific regions and instruments experience significantly higher failure rates (> 15%) within the last 60 days and have a high transaction volume (> $100,000 USD) in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure and Transaction Volume",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions exceeding $200,000 USD in the last 120 days with a high-risk exposure (e.g., transaction velocity > 20 txns/day or > 15% of volume in high-risk instruments) and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "AML Monitoring Alerts by Region",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument and identify if specific regions experience significantly higher AML monitoring alerts within the last 30 days and have a high transaction volume (> $100,000 USD) in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "security": 21,
+      "compliance": 0,
+      "operations": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:06:50.321198",
+    "missions": [
+      {
+        "name": "Unusual Transaction Velocity",
+        "query": "Find users with a transaction velocity > 35 txns/day and > 30% of volume in high-risk instruments within the last 90 days, with a risk level of 'HIGH' and unverified or expiring KYC (within 30 days of kyc_expiry_date), and identify if specific users experience significantly higher transaction velocity (> 35 txns/day) within the last 90 days",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Instrument Exposure",
+        "query": "Identify users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter) and have a high transaction velocity (> 30 txns/day)",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health and Payment Failures",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and region (extracted from country), and identify if specific instruments and regions experience significantly higher failure rates (> 15%) within the last 60 days, and have a high transaction volume (> $200,000 USD) in the last quarter and a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >30% of their total transaction volume_usd in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PES and Account Takeovers",
+        "query": "Identify users with login events from IP addresses that have been involved in > 10 failed login attempts within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and identify if specific IP addresses and regions experience significantly higher failure rates (> 18%) within the last 30 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violations and KYC Gaps",
+        "query": "Find users with unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have shown a significant decrease (> 45%) in transaction volume within the last 60 days, and identify if specific regions experience significantly higher KYC gaps within the last 30 days and a high-risk exposure (e.g., transaction velocity > 20 txns/day or > 15% of volume in high-risk instruments)",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Behavior",
+        "query": "Identify users with login events from multiple devices (>= 6) with different user agents within a 1-hour window, and have a risk level of 'MEDIUM' or 'HIGH' within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and identify if specific devices and user agents experience significantly higher login rates (> 22%) within the last 30 days and a high-risk exposure (e.g., transaction velocity > 20 txns/day or > 15% of volume in high-risk instruments)",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "AML Monitoring and Portfolio Imbalance",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions and instruments experience significantly higher failure rates (> 12%) within the last 45 days, and have a high transaction volume (> $150,000 USD) in the last quarter, and identify if specific regions experience significantly higher AML monitoring alerts within the last 30 days and a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter)",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure and Portfolio Imbalance",
+        "query": "Find users who have executed transactions exceeding $250,000 USD in the last 120 days with a high-risk exposure (e.g., transaction velocity > 25 txns/day or > 18% of volume in high-risk instruments), and have shown unusual transaction patterns (e.g., multiple countries, high-risk instruments) within the same period, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >35% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "operations": 0,
+      "security": 0,
+      "compliance": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:09:56.370019",
+    "missions": [
+      {
+        "name": "Unverified KYC Users",
+        "query": "Identify users with unverified or expiring KYC (within 30 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days and have shown a significant increase (> 35%) in transaction volume within the last 60 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "AML Monitoring Alerts",
+        "query": "Analyze the AML monitoring alerts grouped by region (extracted from country) and identify if specific regions experience significantly higher AML monitoring alerts within the last 30 days and have a high transaction volume (> $200,000 USD) in the last quarter and a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter)",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "compliance": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:10:50.197469",
+    "missions": [
+      {
+        "name": "Payment Failure Rate Analysis",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument and identify if specific regions and instruments experience significantly higher failure rates (> 18%) within the last 60 days and have a high transaction volume (> $250,000 USD) in the last quarter and a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >35% of their total transaction volume_usd in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "operations": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:11:02.199331",
+    "missions": [
+      {
+        "name": "Unusual Login Activity",
+        "query": "Identify users with login events from multiple devices (>= 7) with different user agents within a 2-hour window, and have a risk level of 'MEDIUM' or 'HIGH' within the last 45 days who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period and have a moderate transaction velocity (10-20 txns/day)",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Failed Login Attempts and Transaction Activity",
+        "query": "Identify users with login events from IP addresses that have been involved in > 12 failed login attempts within the last 30 days, and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and identify if specific IP addresses and regions experience significantly higher failure rates (> 20%) within the last 30 days and have a high-risk exposure (e.g., transaction velocity > 25 txns/day or > 20% of volume in high-risk instruments)",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:11:05.859832",
+    "missions": [
+      {
+        "name": "Suspicious Login Activity",
+        "query": "Identify users with login events from multiple devices (>= 8) with different user agents within a 2-hour window and have a risk level of 'MEDIUM' or 'HIGH' within the last 30 days who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Transaction Patterns",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in multiple countries (>= 3) with different currencies within the last 60 days and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >30% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure",
+        "query": "Identify users with a risk level of 'HIGH' who have executed transactions exceeding $75,000 USD in the last 90 days with a transaction velocity > 30 txns/day or > 18% of volume in high-risk instruments and have shown a significant increase (> 40%) in transaction volume within the last 90 days",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Gaps",
+        "query": "Find users with unverified or expiring KYC (within 60 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 90 days and have shown a significant decrease (> 50%) in transaction volume within the last 90 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument and identify if specific regions and instruments experience significantly higher failure rates (> 18%) within the last 60 days and have a high transaction volume (> $250,000 USD) in the last quarter and a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 4) represent >35% of their total transaction volume_usd in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "AML Monitoring Alerts",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument and identify if specific regions experience significantly higher AML monitoring alerts within the last 30 days and have a high transaction volume (> $200,000 USD) in the last quarter and a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter)",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument and identify if specific regions and instruments experience significantly higher failure rates (> 12%) within the last 45 days and have a high transaction volume (> $150,000 USD) in the last quarter and identify if specific regions experience significantly higher AML monitoring alerts within the last 30 days",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Portfolio Imbalance",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >25% of their total transaction volume_usd in the last quarter) and have a high transaction velocity (> 35 txns/day)",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "risk": 0,
+      "compliance": 0,
+      "operations": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:12:18.781745",
+    "missions": [
+      {
+        "name": "Unusual Device Activity",
+        "query": "Identify users with login events from multiple devices (>= 5) with different user agents within a 1-hour window, who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and have shown a significant increase (> 30%) in transaction volume within the last 60 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP Monitoring Alerts",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in multiple countries (>= 2) with different currencies within the last 30 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >15% of their total transaction volume_usd in the last quarter, and have received PEP monitoring alerts within the last 30 days",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate Anomaly",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions experience significantly higher AML monitoring alerts within the last 60 days and have a high transaction volume (> $300,000 USD) in the last quarter, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >15% of their total transaction volume_usd in the last quarter)",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Risk Exposure Monitoring",
+        "query": "Identify users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions exceeding $100,000 USD in the last 90 days with a transaction velocity > 20 txns/day or > 10% of volume in high-risk instruments, and have shown a significant decrease (> 40%) in transaction volume within the last 90 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Instrument Activity",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 30 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter), and have shown a significant increase (> 20%) in transaction volume within the last 30 days",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Expiry and High-Risk Activity",
+        "query": "Find users with unverified or expiring KYC (within 90 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 90 days, and have shown a significant decrease (> 50%) in transaction volume within the last 90 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health Monitoring",
+        "query": "Analyze the system health of the platform by identifying users with login events from multiple devices (>= 3) with different user agents within a 1-hour window, who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and have shown a significant increase (> 20%) in transaction volume within the last 30 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter)",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure Detection",
+        "query": "Identify users with a risk level of 'HIGH' who have executed transactions exceeding $150,000 USD in the last 90 days with a transaction velocity > 25 txns/day or > 12% of volume in high-risk instruments, and have shown a significant increase (> 30%) in transaction volume within the last 90 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 0,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:18:19.686984",
+    "missions": [
+      {
+        "name": "Unusual Transaction Patterns",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in multiple countries (>= 2) with different currencies within the last 30 days and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter) and have shown a significant decrease (> 20%) in transaction volume within the last 30 days",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Instrument Usage",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 3) represent >20% of their total transaction volume_usd in the last quarter) and have a high transaction velocity (> 40 txns/day)",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unverified KYC and High-Risk Transactions",
+        "query": "Find users with unverified or expiring KYC (within 90 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 90 days, and have shown a significant increase (> 25%) in transaction volume within the last 90 days and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter)",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate Analysis",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions experience significantly higher AML monitoring alerts within the last 60 days and have a high transaction volume (> $250,000 USD) in the last quarter and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >15% of their total transaction volume_usd in the last quarter)",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health Analysis",
+        "query": "Analyze the system health of the platform by identifying users with login events from multiple devices (>= 3) with different user agents within a 1-hour window, who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and have shown a significant increase (> 20%) in transaction volume within the last 30 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter)",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP Monitoring and Risk Exposure",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have received PEP monitoring alerts within the last 30 days and have executed transactions in multiple countries (>= 2) with different currencies within the last 30 days and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter) and have shown a significant increase (> 20%) in transaction volume within the last 30 days",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Patterns",
+        "query": "Find users with login events from multiple devices (>= 5) with different user agents within a 1-hour window, who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH', and have shown a significant increase (> 30%) in transaction volume within the last 60 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violations and KYC Gaps",
+        "query": "Find users with unverified or expiring KYC (within 60 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 90 days, and have shown a significant decrease (> 50%) in transaction volume within the last 90 days, and have a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "risk": 0,
+      "compliance": 0,
+      "operations": 0,
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:20:48.487589",
+    "missions": [
+      {
+        "name": "Unusual Login Patterns",
+        "query": "Identify users with login events from multiple devices (>= 3) with different user agents within a 30-minute window, who have executed transactions in low-risk instruments (e.g., stocks) within the same period, and have a risk level of 'LOW' or 'MEDIUM'.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "AML Monitoring",
+        "query": "Analyze the payment failure rate (status='failed') grouped by region (extracted from country) and instrument, and identify if specific regions experience significantly higher AML monitoring alerts within the last 60 days and have a low transaction volume (< $100,000 USD) in the last quarter.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "High-Risk Exposure",
+        "query": "Identify users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 30 days, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter), and have shown a significant decrease (> 20%) in transaction volume within the last 30 days.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failures",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly higher payment failure rates within the last 60 days and have a high transaction volume (> $200,000 USD) in the last quarter.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP Monitoring",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have received PEP monitoring alerts within the last 30 days and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter).",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health",
+        "query": "Analyze the system health of the platform by identifying users with login events from multiple devices (>= 2) with different user agents within a 30-minute window, who have executed transactions in low-risk instruments (e.g., stocks) within the same period, and have a risk level of 'LOW' or 'MEDIUM'.",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Portfolio Imbalance",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter) and have shown a significant increase (> 15%) in transaction volume within the last 60 days.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "KYC Gaps",
+        "query": "Find users with unverified or expiring KYC (within 90 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in low-risk instruments (e.g., stocks) within the last 90 days, and have shown a significant decrease (> 40%) in transaction volume within the last 90 days.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "risk": 0,
+      "operations": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:21:26.020963",
+    "missions": [
+      {
+        "name": "Identify Unusual Login Activity",
+        "query": "Find users with login events from multiple devices (> 5) with different user agents within a 1-hour window who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period and have a risk level of 'MEDIUM' or 'HIGH' and have shown a significant increase (> 30%) in transaction volume within the last 60 days",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:21:47.651891",
+    "missions": [
+      {
+        "name": "Payment Failure Rate Analysis",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly higher payment failure rates within the last 60 days and have a low transaction volume (< $100,000 USD) in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health Analysis",
+        "query": "Analyze the system health of the platform by identifying users with login events from multiple devices (>= 3) with different user agents within a 30-minute window, who have executed transactions in low-risk instruments (e.g., stocks) within the same period, and have a risk level of 'LOW' or 'MEDIUM'",
+        "domain": "operations",
+        "risk_score": 39,
+        "severity": "MEDIUM",
+        "data_count": 2954
+      }
+    ],
+    "domain_scores": {
+      "operations": 20
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:22:29.489306",
+    "missions": [
+      {
+        "name": "KYC Monitoring",
+        "query": "Identify users with unverified or expiring KYC (within 90 days of kyc_expiry_date) and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in low-risk instruments (e.g., stocks) within the last 90 days and have shown a significant decrease (> 40%) in transaction volume within the last 90 days.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP Monitoring",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have received PEP monitoring alerts within the last 30 days and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter).",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "compliance": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:24:13.580864",
+    "missions": [
+      {
+        "name": "Unusual Device Activity",
+        "query": "Find users with login events from multiple devices (>= 3) with the same user agent within a 1-hour window and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Regulatory Violation",
+        "query": "Find users with a risk level of 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days and have a KYC status of 'EXPIRED' or 'UNVERIFIED'",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Performance",
+        "query": "Analyze the average transaction volume by instrument for users with a risk level of 'LOW' or 'MEDIUM' and identify if specific instruments experience significantly higher average transaction volume within the last 90 days",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Portfolio Imbalance",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in multiple high-risk instruments (e.g., crypto, forex) within the last 60 days and have a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter)",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unverified KYC",
+        "query": "Find users with unverified or expiring KYC (within 90 days of kyc_expiry_date) and a risk level of 'LOW' or 'MEDIUM' who have executed transactions in low-risk instruments (e.g., stocks) within the last 90 days and have a transaction volume of > $100,000 USD in the last quarter",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Payment Failure Rate",
+        "query": "Analyze the payment failure rate (status='failed') grouped by instrument and identify if specific instruments experience significantly lower payment failure rates within the last 60 days and have a high transaction volume (> $100,000 USD) in the last quarter",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Risk Exposure",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days and have a significant increase (> 20%) in transaction volume within the last 60 days",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Device Takeover",
+        "query": "Find users with login events from multiple devices (>= 2) with different user agents within a 30-minute window and have executed transactions in low-risk instruments (e.g., stocks) within the same period and have a risk level of 'LOW' or 'MEDIUM'",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      }
+    ],
+    "domain_scores": {
+      "security": 0,
+      "compliance": 0,
+      "operations": 0,
+      "risk": 0
+    },
+    "critical_domains": []
+  },
+  {
+    "timestamp": "2026-07-26T05:27:39.226213",
+    "missions": [
+      {
+        "name": "Unusual KYC Expirations",
+        "query": "Find users with unverified or expiring KYC within 30 days of kyc_expiry_date and a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 30 days.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Device Fingerprint Anomalies",
+        "query": "Identify users with login events from multiple devices (>= 2) with the same user agent within a 2-hour window and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period.",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Risk Level Inconsistencies",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in low-risk instruments (e.g., stocks) within the last 90 days and have shown a significant increase (> 30%) in transaction volume within the last 90 days.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "System Health Indicators",
+        "query": "Analyze the system health of the platform by identifying users with login events from multiple devices (>= 2) with different user agents within a 1-hour window, who have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'HIGH' or 'MEDIUM' with a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >15% of their total transaction volume_usd in the last quarter).",
+        "domain": "operations",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "PEP Monitoring Alerts",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have received PEP monitoring alerts within the last 30 days and have executed transactions in multiple high-risk instruments (e.g., crypto, forex) within the same period, and have a significant decrease (> 25%) in transaction volume within the last 30 days.",
+        "domain": "compliance",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Unusual Login Behavior",
+        "query": "Identify users with login events from multiple devices (>= 3) with different user agents within a 1-hour window and have executed transactions in high-risk instruments (e.g., crypto, forex) within the same period, and have a risk level of 'MEDIUM' or 'HIGH' with a portfolio imbalance (i.e., a standard deviation of transaction volume by instrument for each user where multiple instruments (>= 2) represent >10% of their total transaction volume_usd in the last quarter).",
+        "domain": "security",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Transaction Volume Disparities",
+        "query": "Find users with a risk level of 'MEDIUM' or 'HIGH' who have executed transactions in high-risk instruments (e.g., crypto, forex) within the last 60 days and have a significant disparity (> 30%) in transaction volume between different instruments within the same period.",
+        "domain": "risk",
+        "risk_score": 0,
+        "severity": "LOW",
+        "data_count": 0
+      },
+      {
+        "name": "Device Fingerprint Consistency",
+        "query": "Analyze the device fingerprint consistency of users with login events from multiple devices (>= 2) with the same user agent within a 2-hour window, who have executed transactions in low-risk instruments (e.g., stocks) within the same period, and have a risk level of 'LOW' or 'MEDIUM' with a transaction volume of > $50,000 USD in the last quarter.",
+        "domain": "operations",
+        "risk_score": 64,
+        "severity": "HIGH",
+        "data_count": 7288
+      }
+    ],
+    "domain_scores": {
+      "compliance": 0,
+      "security": 0,
+      "risk": 0,
+      "operations": 32
     },
     "critical_domains": []
   }

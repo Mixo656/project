@@ -279,6 +279,55 @@ async def run_sentinel_scan():
     return {"status": "success", "detections": results_list, "narrative": narrative}
 
 
+# ─── Per-Domain Scan Endpoint ───────────────────────────────────────────────
+
+@router.get("/scan/{domain}")
+async def run_domain_scan(domain: str):
+    """
+    Scan a single domain (security, compliance, risk, operations).
+    Uses AI brainstormer to generate domain-specific missions.
+    """
+    valid_domains = {"security", "compliance", "risk", "operations"}
+    if domain not in valid_domains:
+        from fastapi import HTTPException
+        raise HTTPException(status_code=400, detail=f"Invalid domain '{domain}'. Valid: {', '.join(valid_domains)}")
+
+    logger.info(f"SENTINEL: Running per-domain scan for '{domain}'...")
+
+    # Brainstorm missions for this specific domain
+    all_missions = await brainstormer.brainstorm_missions(count_per_domain=2)
+    domain_missions = [m for m in all_missions if m["domain"] == domain]
+
+    # If brainstormer didn't produce missions for this domain, use fallback
+    if not domain_missions:
+        fallback_queries = {
+            "security": "Show users with risk_level HIGH and account_status ACTIVE",
+            "compliance": "Show recent compliance violations or audit findings",
+            "risk": "Show top risk assessments with severity HIGH or CRITICAL",
+            "operations": "Show system performance metrics and operational alerts",
+        }
+        domain_missions = [{
+            "id": f"domain-{domain}-001",
+            "name": f"{domain.title()} Domain Scan",
+            "query": fallback_queries[domain],
+            "domain": domain,
+            "severity": "MEDIUM",
+        }]
+
+    tasks = [run_mission(m) for m in domain_missions]
+    results = await asyncio.gather(*tasks)
+    results_list = list(results)
+
+    # Send Slack alerts for HIGH/CRITICAL findings
+    for r in results_list:
+        asyncio.create_task(notify_slack(r))
+
+    # Record to scan memory
+    scan_memory.record_scan(results_list)
+
+    return {"status": "success", "detections": results_list}
+
+
 # ─── Scan History Endpoints ─────────────────────────────────────────────────
 
 @router.get("/history")

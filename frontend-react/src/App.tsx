@@ -19,14 +19,14 @@ function App() {
 
     useEffect(() => {
         // Check API connection
-        fetch('http://localhost:8080/health')
+        fetch('/health')
             .then(res => res.json())
             .then(() => setIsConnected(true))
             .catch(() => setIsConnected(false));
     }, []);
 
     const handleSelectScan = (scanId: string) => {
-        fetch(`http://localhost:8080/api/v1/sentinel/history/${scanId}`)
+        fetch(`/api/v1/sentinel/history/${scanId}`)
             .then(res => res.json())
             .then(data => {
                 setHistoricalScan(data);

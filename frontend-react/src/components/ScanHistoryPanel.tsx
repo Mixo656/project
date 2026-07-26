@@ -23,7 +23,7 @@ export default function ScanHistoryPanel({ onClose, onSelectScan }: ScanHistoryP
 
     useEffect(() => {
         setLoading(true);
-        fetch('http://localhost:8080/api/v1/sentinel/history')
+        fetch('/api/v1/sentinel/history')
             .then(res => res.json())
             .then(data => {
                 setScans(data.scans || []);

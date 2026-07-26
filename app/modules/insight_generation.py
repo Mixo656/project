@@ -52,9 +52,27 @@ Use executive language: professional, data-driven, and concise.
             response = response.replace("```json", "").replace("```", "").strip()
             data = json.loads(response)
             
+            raw_insight = data.get("insight", "Insight generated based on data metrics.")
+            raw_rec = data.get("recommendation", "Continue monitoring these trends.")
+
+            # Ensure they are formatted as clean strings to satisfy Pydantic models
+            if isinstance(raw_insight, dict):
+                insight_str = "\n".join(f"- {k}: {v}" if not isinstance(v, (dict, list)) else f"- {k}: {json.dumps(v)}" for k, v in raw_insight.items())
+            elif isinstance(raw_insight, list):
+                insight_str = "\n".join(f"- {item}" for item in raw_insight)
+            else:
+                insight_str = str(raw_insight)
+
+            if isinstance(raw_rec, dict):
+                rec_str = "\n".join(f"- {k}: {v}" if not isinstance(v, (dict, list)) else f"- {k}: {json.dumps(v)}" for k, v in raw_rec.items())
+            elif isinstance(raw_rec, list):
+                rec_str = "\n".join(f"- {item}" for item in raw_rec)
+            else:
+                rec_str = str(raw_rec)
+
             return {
-                "insight": data.get("insight", "Insight generated based on data metrics."),
-                "recommendation": data.get("recommendation", "Continue monitoring these trends.")
+                "insight": insight_str,
+                "recommendation": rec_str
             }
         except Exception as e:
             logger.error(f"Insight Generation Error: {e}")

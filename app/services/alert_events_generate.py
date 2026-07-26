@@ -35,7 +35,7 @@ class EventGenerator:
     def write_event(self, event_type: str, data: dict):
         """Write an event to the database."""
         event_id = self.engine_service.insert_event(event_type, data)
-        print(f"[EVENT] {event_type} → {data} (id={event_id})")
+        print(f"[EVENT] {event_type} -> {data} (id={event_id})")
         return event_id
     
     # ================= USERS (every ~1 hour) =================
@@ -234,7 +234,7 @@ def write_event(event_type, data):
     with open(EVENT_FILE, "a") as f:
         f.write(json.dumps(event) + "\n")
     
-    print(f"[EVENT] {event_type} → {data}")
+    print(f"[EVENT] {event_type} -> {data}")
 
 
 def generate_users():

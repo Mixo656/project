@@ -121,7 +121,8 @@ def run_burst_mode():
         print("-"*50)
         for h in history:
             icon = "🚨" if h['action'] == 'triggered' else "✅"
-            print(f"  {icon} [{h['action'].upper()}] {h.get('metric_name', f'Metric #{h[\"metric_id\"]}')} ")
+            metric_name = h.get('metric_name') or f"Metric #{h['metric_id']}"
+            print(f"  {icon} [{h['action'].upper()}] {metric_name} ")
             print(f"      Count: {h['event_count']} | Threshold: {h['threshold']} | Time: {h['created_at']}")
     
     engine.stop()
