@@ -54,6 +54,7 @@ async def test_llm_service_retry_logic():
             service = LLMService()
             service.provider = "gemini"
             service.model = mock_model
+            service.model_name = "test-model"
             
             response = await service.generate_response("Hello")
             assert response == "Success response"
@@ -77,6 +78,7 @@ async def test_llm_service_safety_block():
         service = LLMService()
         service.provider = "gemini"
         service.model = mock_model
+        service.model_name = "test-model"
         
         response = await service.generate_response("Harmful prompt")
         assert "blocked by safety filters" in response
